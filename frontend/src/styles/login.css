@@ -1,0 +1,346 @@
+@import url(
+    'https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'
+);
+
+
+/* =====================================================
+   Streamlit 기본 설정
+===================================================== */
+
+html,
+body,
+[class*="css"],
+.stApp {
+    font-family: 'Pretendard', sans-serif;
+}
+
+
+.stApp {
+    background-color: #FFF9F4;
+}
+
+
+header[data-testid="stHeader"] {
+    height: 0;
+    visibility: hidden;
+}
+
+
+#MainMenu {
+    visibility: hidden;
+}
+
+
+footer {
+    visibility: hidden;
+}
+
+
+div[data-testid="stToolbar"] {
+    display: none;
+}
+
+
+/* =====================================================
+   전체 페이지
+===================================================== */
+
+.block-container {
+    max-width: 1320px;
+
+    padding-top: 28px;
+    padding-left: 44px;
+    padding-right: 44px;
+    padding-bottom: 35px;
+}
+
+
+/* =====================================================
+   Navbar
+===================================================== */
+
+.navbar {
+    width: 100%;
+    box-sizing: border-box;
+
+    min-height: 90px;
+
+    background-color: #FFFFFF;
+
+    padding: 16px 26px;
+
+    border-radius: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 32px;
+
+    box-shadow:
+        0 5px 22px rgba(51, 51, 51, 0.05);
+}
+
+
+.navbar-brand-group {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.navbar-logo {
+    color: #FF7A00;
+
+    font-size: 23px;
+    font-weight: 800;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+}
+
+
+.navbar-slogan {
+    margin-top: 2px;
+
+    color: #333333;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    opacity: 0.60;
+
+    white-space: nowrap;
+}
+
+
+.navbar-slogan-highlight {
+    color: #FF7A00;
+
+    font-weight: 700;
+
+    opacity: 1;
+}
+
+
+.navbar-text {
+    color: #333333;
+
+    font-size: 12px;
+
+    opacity: 0.42;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   로그인 제목
+===================================================== */
+
+.login-main-title {
+    color: #333333;
+
+    font-size: 40px;
+    font-weight: 800;
+
+    line-height: 1.25;
+
+    letter-spacing: -1.2px;
+
+    margin-top: 38px;
+
+    white-space: nowrap;
+}
+
+
+.orange-text {
+    color: #FF7A00;
+}
+
+
+.login-description {
+    color: #333333;
+
+    opacity: 0.52;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-top: 14px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   입력창
+===================================================== */
+
+div[data-testid="stTextInput"] input {
+    height: 52px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid rgba(51, 51, 51, 0.13);
+
+    background-color: #FFFFFF;
+
+    color: #333333;
+
+    font-size: 14px;
+}
+
+
+div[data-testid="stTextInput"] input:focus {
+    border-color: #FF7A00;
+
+    box-shadow:
+        0 0 0 1px #FF7A00;
+}
+
+
+/* =====================================================
+   버튼
+===================================================== */
+
+div[data-testid="stButton"] > button {
+    min-height: 50px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 650;
+}
+
+
+div[data-testid="stButton"] > button[kind="primary"] {
+    background-color: #FF7A00;
+
+    color: #FFFFFF;
+
+    border: none;
+}
+
+
+div[data-testid="stButton"] > button[kind="primary"]:hover {
+    background-color: #FFB368;
+
+    color: #333333;
+
+    border: none;
+}
+
+
+/* =====================================================
+   체크박스
+===================================================== */
+
+div[data-testid="stCheckbox"] label {
+    color: #333333;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   구분선
+===================================================== */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    color: rgba(51, 51, 51, 0.38);
+
+    font-size: 12px;
+
+    margin: 20px 0;
+}
+
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    border-top:
+        1px solid rgba(51, 51, 51, 0.13);
+}
+
+
+.divider span {
+    padding: 0 14px;
+}
+
+
+/* =====================================================
+   회원가입 안내
+===================================================== */
+
+.signup-guide {
+    color: rgba(51, 51, 51, 0.50);
+
+    font-size: 13px;
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    margin-bottom: 5px;
+}
+
+
+/* =====================================================
+   로그인 이미지
+===================================================== */
+
+div[data-testid="stImage"] img {
+    border-radius: 20px;
+}
+
+
+/* =====================================================
+   반응형
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .block-container {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .login-main-title {
+        font-size: 32px;
+
+        white-space: normal;
+
+        margin-top: 25px;
+    }
+
+
+    .navbar-logo {
+        font-size: 19px;
+    }
+
+
+    .navbar-slogan {
+        font-size: 10px;
+
+        white-space: normal;
+    }
+}

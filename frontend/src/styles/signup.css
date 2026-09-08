@@ -1,0 +1,148 @@
+header[data-testid="stHeader"] {
+    display: none;
+}
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+div[data-testid="stToolbar"] {
+    display: none;
+}
+
+.stApp {
+    background-color: #FFF9F4;
+}
+
+.block-container {
+    max-width: 800px;
+    padding-top: 24px;
+    padding-bottom: 40px;
+}
+
+.signup-navbar {
+    width: 100%;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 20px;
+    margin-bottom: 50px;
+
+    background-color: #FFFFFF;
+
+    border: 1px solid #EEEEEE;
+    border-radius: 14px;
+
+    box-sizing: border-box;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #333333;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.brand-icon {
+    font-size: 21px;
+}
+
+.signup-label {
+    color: #FF7A00;
+
+    font-size: 20px;
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+.signup-title {
+    color: #333333;
+
+    font-size: 32px;
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+.signup-description {
+    color: #666666;
+
+    font-size: 14px;
+
+    margin-bottom: 28px;
+}
+
+div[data-testid="stTextInput"] {
+    margin-bottom: 2px;
+}
+
+div[data-testid="stTextInput"] input {
+    height: 48px;
+
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+
+    padding: 0 16px;
+
+    font-size: 14px;
+
+    background-color: #FFFFFF;
+}
+
+div[data-testid="stTextInput"] input:focus {
+    border-color: #FF7A00;
+    box-shadow: 0 0 0 1px #FF7A00;
+}
+
+div[data-testid="stCheckbox"] label {
+    color: #666666;
+    font-size: 13px;
+}
+
+div.stButton > button {
+    width: 100%;
+    height: 48px;
+
+    background-color: #FF7A00;
+    color: #FFFFFF;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+div.stButton > button:hover {
+    background-color: #E96F00;
+    color: #FFFFFF;
+    border: none;
+}
+
+div.stButton > button:focus {
+    background-color: #FF7A00;
+    color: #FFFFFF;
+    border: none;
+}
+
+.signup-footer {
+    text-align: center;
+
+    color: #999999;
+
+    font-size: 13px;
+
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
