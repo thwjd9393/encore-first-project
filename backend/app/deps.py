@@ -3,7 +3,7 @@ import json
 from uuid import UUID
 
 from fastapi import Depends, HTTPException
-from app.db import create_auth_client
+from app.db import create_auth_client, supabase
 from app.schemas.user import CurrentUser
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
@@ -82,20 +82,16 @@ def require_own_conversation(
 ) -> UUID:
     """이 대화가 내 것인지 확인한다. 아니면 404.
 
-    18일차의 /me/conversations 와 같은 원리다. 우리가 소유자를 비교하지 않는다.
-    RLS 를 켠 클라이언트로 조회해서 0건이면 내 것이 아니다.
-
-    없는 대화와 남의 대화를 구분하지 않고 똑같이 404 로 답한다.
-    구분해서 알려주면 "그 대화는 존재한다"는 정보를 흘리게 된다.
+    없는 대화와 남의 대화를 구분하지 않고 똑같이 404로 답한다.
     """
-    client = create_auth_client()
-    client.postgrest.auth(current_user.token)
     owned = (
-        client.table("conversations")
+        supabase.table("conversations")
         .select("id")
         .eq("id", str(conversation_id))
+        .eq("user_id", current_user.id)
+        .limit(1)
         .execute()
     )
     if not owned.data:
-        raise HTTPException(status_code=404, detail="conversation not found")
+        raise HTTPException(status_code=404, detail="대화를 찾을 수 없습니다.")
     return conversation_id

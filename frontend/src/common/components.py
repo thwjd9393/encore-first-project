@@ -169,6 +169,24 @@ def summarize_donut_trend(points):
     )
 
 
+def with_donut_percentages(points):
+    total = sum(point["value"] for point in points)
+    rows = []
+    for point in points:
+        value = float(point["value"])
+        percent = round((value / total) * 100) if total else 0
+        rows.append(
+            {
+                "label": point["label"],
+                "value": value,
+                "percent": percent,
+                "legend_label": f"{point['label']} {percent}%",
+                "percent_label": f"{percent}%",
+            }
+        )
+    return rows
+
+
 def render_donut_chart(title, points):
     with st.container(border=True):
         valid_points = [
@@ -195,21 +213,35 @@ def render_donut_chart(title, points):
         import pandas as pd
         import altair as alt
 
-        chart_df = pd.DataFrame(valid_points)
+        chart_rows = with_donut_percentages(valid_points)
+        chart_df = pd.DataFrame(chart_rows)
+        color_range = [
+            CHART_CATEGORY_COLORS[index % len(CHART_CATEGORY_COLORS)]
+            for index in range(len(chart_rows))
+        ]
         color_scale = alt.Scale(
-            domain=list(chart_df["label"]),
-            range=CHART_CATEGORY_COLORS[: len(chart_df)],
+            domain=list(chart_df["legend_label"]),
+            range=color_range,
         )
-        chart = (
-            alt.Chart(chart_df)
-            .mark_arc(innerRadius=48, outerRadius=80)
-            .encode(
-                theta=alt.Theta("value:Q"),
-                color=alt.Color("label:N", scale=color_scale, legend=alt.Legend(title=None)),
-                tooltip=["label", "value"],
-            )
-            .properties(height=220)
+        base = alt.Chart(chart_df).encode(
+            theta=alt.Theta("value:Q", stack=True),
+            color=alt.Color(
+                "legend_label:N",
+                scale=color_scale,
+                legend=alt.Legend(title=None, labelLimit=160),
+            ),
+            tooltip=[
+                alt.Tooltip("label:N", title="항목"),
+                alt.Tooltip("value:Q", title="건수"),
+                alt.Tooltip("percent:Q", title="비율(%)"),
+            ],
         )
+        donut = base.mark_arc(innerRadius=48, outerRadius=80)
+        labels = base.mark_text(radius=64, size=11).encode(
+            text="percent_label:N",
+            color=alt.value(CHART_TEXT),
+        )
+        chart = (donut + labels).properties(height=220).configure_view(strokeWidth=0)
         st.altair_chart(chart)
 
 

@@ -1,7 +1,8 @@
 from pathlib import Path
 
-import requests
 import streamlit as st
+
+from src.common.api_client import post_json
 
 
 def load_login_css():
@@ -31,6 +32,12 @@ def render_login():
             st.session_state.page = "home"
 
         st.rerun()
+
+    if st.session_state.get("login_notice"):
+        st.success(st.session_state.pop("login_notice"))
+
+    if "login_email" not in st.session_state and st.session_state.get("remembered_email"):
+        st.session_state.login_email = st.session_state.remembered_email
 
     login_col, image_col = st.columns(
         [0.94, 1.06],
@@ -66,8 +73,6 @@ AI가 내 취향과 상황에 맞는 맛집을 찾아드려요.
         remember_col, find_col = st.columns([0.95, 1.05])
 
         with remember_col:
-            # 기존 UI 유지
-            # 브라우저 재접속 후 로그인 유지 기능은 아직 미구현
             st.checkbox(
                 "로그인 상태 유지",
                 key="login_remember",
@@ -93,60 +98,53 @@ AI가 내 취향과 상황에 맞는 맛집을 찾아드려요.
                 st.warning("이메일과 비밀번호를 입력해주세요.")
 
             else:
-                try:
-                    response = requests.post(
-                        "http://127.0.0.1:8000/api/v1/auth/login",
-                        json={
-                            "email": email.strip(),
-                            "password": password,
-                        },
-                        timeout=10,
-                    )
+                result = post_json(
+                    "/auth/login",
+                    json_body={
+                        "email": email.strip(),
+                        "password": password,
+                    },
+                )
 
-                except requests.RequestException:
-                    st.error(
-                        "백엔드 서버에 연결할 수 없습니다. "
-                        "서버 실행 상태를 확인해주세요."
-                    )
+                if result["ok"]:
+                    data = result["data"] or {}
+                    st.session_state.user = data["user"]
+                    st.session_state.access_token = data["access_token"]
+                    st.session_state.pop("conversation_id", None)
+                    st.session_state.pop("chat_loaded", None)
+                    st.session_state.pop("chat_messages", None)
+                    st.session_state.pop("last_message_id", None)
+                    if st.session_state.get("login_remember"):
+                        st.session_state.remembered_email = email.strip()
+                    else:
+                        st.session_state.pop("remembered_email", None)
+                    if data["user"].get("profile_type") == "0":
+                        st.session_state.page = "admin"
+                    else:
+                        st.session_state.page = "home"
+                    st.rerun()
 
                 else:
-                    # 로그인 성공
-                    if response.status_code == 200:
-                        data = response.json()
-
-                        # 로그인 사용자 정보 저장
-                        st.session_state.user = data["user"]
-
-                        # Access Token 저장
-                        st.session_state.access_token = data["access_token"]
-
-                        # 관리자 / 일반 사용자 분기
-                        if data["user"].get("profile_type") == "0":
-                            st.session_state.page = "admin"
-                        else:
-                            st.session_state.page = "home"
-
-                        st.rerun()
-
-                    # 이메일 / 비밀번호 오류
-                    elif response.status_code == 401:
+                    status_code = result.get("status_code")
+                    message = (result.get("error") or {}).get("message")
+                    if status_code == 401:
                         st.error(
                             "이메일 또는 비밀번호가 올바르지 않습니다."
                         )
-
-                    # 비활성화된 계정
-                    elif response.status_code == 403:
+                    elif status_code == 403:
                         st.error(
                             "사용할 수 없는 계정입니다."
                         )
-
-                    # profiles 정보 없음
-                    elif response.status_code == 404:
+                    elif status_code == 404:
                         st.error(
                             "사용자 프로필 정보를 찾을 수 없습니다."
                         )
-
-                    # 기타 오류
+                    elif status_code == 0:
+                        st.error(
+                            message
+                            or "백엔드 서버에 연결할 수 없습니다. "
+                            "서버 실행 상태를 확인해주세요."
+                        )
                     else:
                         st.error(
                             "로그인 처리 중 오류가 발생했습니다."

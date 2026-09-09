@@ -52,4 +52,42 @@ def get_profile_for_user_id(user_id):
 
 
 def require_admin(authorization: str | None = Header(default=None)):
-    return None
+    access_token = get_access_token_from_authorization(authorization)
+    if not access_token:
+        raise AdminAuthError(
+            build_error_response(
+                401,
+                "AUTH_REQUIRED",
+                "로그인이 필요합니다.",
+            )
+        )
+
+    user_id, reason = get_user_id_from_access_token(access_token)
+    if not user_id:
+        code = "TOKEN_EXPIRED" if reason == "expired" else "INVALID_TOKEN"
+        raise AdminAuthError(
+            build_error_response(
+                401,
+                code,
+                "로그인이 필요합니다.",
+            )
+        )
+
+    profile = get_profile_for_user_id(user_id)
+    if not profile or profile.get("profile_status") != ACTIVE_PROFILE_STATUS:
+        raise AdminAuthError(
+            build_error_response(
+                403,
+                "RESOURCE_FORBIDDEN",
+                "사용할 수 없는 계정입니다.",
+            )
+        )
+    if profile.get("profile_type") != ADMIN_PROFILE_TYPE:
+        raise AdminAuthError(
+            build_error_response(
+                403,
+                "ADMIN_REQUIRED",
+                "관리자만 이용할 수 있습니다.",
+            )
+        )
+    return profile

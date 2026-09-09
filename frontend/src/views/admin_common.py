@@ -75,6 +75,21 @@ def render_admin_sidebar(current_menu):
     with st.sidebar:
         render_admin_brand()
         render_admin_nav(current_menu)
+        st.divider()
+        if st.button(
+            ":material/restaurant_menu: 맛집 추천",
+            width="stretch",
+            key="admin_go_user_home_button",
+        ):
+            st.session_state.page = "home"
+            st.rerun()
+        if st.button(
+            ":material/logout: 로그아웃",
+            width="stretch",
+            key="admin_logout_button",
+        ):
+            st.query_params["page"] = "logout"
+            st.rerun()
 
 
 def get_category_name(item):
@@ -86,20 +101,32 @@ def get_category_name(item):
     )
 
 
+PRICE_TAG_TO_LABEL = {
+    "상": "상",
+    "중": "중",
+    "하": "하",
+    "인당가격_상": "상",
+    "인당가격_중": "중",
+    "인당가격_하": "하",
+}
+
+
 def get_price_label(item):
     direct = item.get("price_range") or item.get("price_range_tag")
     if direct in PRICE_FILTER_OPTIONS[1:]:
         return direct
+    if direct in PRICE_TAG_TO_LABEL:
+        return PRICE_TAG_TO_LABEL[direct]
     tags = item.get("matched_tags") or item.get("tags") or []
     for tag in tags:
         tag_text = str(tag)
-        if tag_text in {"상", "중", "하"}:
-            return tag_text
-        if "고가" in tag_text or tag_text == "상":
+        if tag_text in PRICE_TAG_TO_LABEL:
+            return PRICE_TAG_TO_LABEL[tag_text]
+        if "고가" in tag_text:
             return "상"
-        if "중가" in tag_text or tag_text == "중":
+        if "중가" in tag_text:
             return "중"
-        if "저가" in tag_text or tag_text == "하":
+        if "저가" in tag_text:
             return "하"
     return "-"
 

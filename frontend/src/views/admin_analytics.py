@@ -641,15 +641,23 @@ def format_chart_value_text(y_field, value):
     return f"{value:.0f} ms"
 
 
-def summarize_chart_trend(rows, y_field):
+CHART_TOP_N = 7
+
+
+def take_top_chart_rows(rows, y_field, limit=CHART_TOP_N):
     ranked = sorted(rows, key=lambda row: row[y_field], reverse=True)
+    return ranked[:limit]
+
+
+def summarize_chart_trend(all_rows, display_rows, y_field):
+    ranked = sorted(display_rows, key=lambda row: row[y_field], reverse=True)
     top = ranked[0]
     top_text = f"{top['label']} {format_chart_value_text(y_field, top[y_field])}"
     if len(ranked) == 1:
         return f"최댓값은 {top_text}입니다."
 
     if y_field in {"request_count", "error_count"}:
-        total = sum(row[y_field] for row in ranked)
+        total = sum(row[y_field] for row in all_rows)
         share = (top[y_field] / total) * 100 if total else 0
         return f"최댓값은 {top_text}이며 전체 {int(total)}건의 {share:.0f}%입니다."
 
@@ -700,11 +708,12 @@ def render_points_chart(title, points, y_field, color, y_title):
             render_empty_state("표시할 통계가 없습니다.")
             return
 
-        render_chart_title(title, summarize_chart_trend(rows, y_field))
+        display_rows = take_top_chart_rows(rows, y_field)
+        render_chart_title(title, summarize_chart_trend(rows, display_rows, y_field))
 
         import altair as alt
 
-        chart_df = pd.DataFrame(rows)
+        chart_df = pd.DataFrame(display_rows)
         row_count = len(chart_df)
         chart_height = 32 * row_count
         chart = (
@@ -747,7 +756,7 @@ def render_points_chart(title, points, y_field, color, y_title):
 
 def render_operation_charts(usage_points, latency_points, error_points):
     st.caption(
-        "엔드포인트는 값이 큰 순으로 비교합니다. 공통 접두 /api/v1/admin 은 생략하고 "
+        "엔드포인트는 값이 큰 상위 7개만 비교합니다. 공통 접두 /api/v1/admin 은 생략하고 "
         "Method와 나머지 경로를 모두 표시합니다."
     )
     left_column, right_column = st.columns(2, gap="medium")
@@ -1739,8 +1748,6 @@ def list_search_stats():
 
 
 def refresh_search_stats_if_needed():
-    if st.session_state.get(ADMIN_ANALYTICS_KEYS["search_stats"]) is not None:
-        return
     st.session_state[ADMIN_ANALYTICS_KEYS["search_stats"]] = list_search_stats()
 
 

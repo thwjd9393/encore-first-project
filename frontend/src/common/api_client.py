@@ -9,7 +9,18 @@ REQUEST_TIMEOUT_SECONDS = 30.0
 
 
 def get_fastapi_base_url():
-    return os.getenv("FASTAPI_BASE_URL", DEFAULT_FASTAPI_BASE_URL)
+    env_url = (os.getenv("FASTAPI_BASE_URL") or "").strip()
+    if env_url:
+        return env_url.rstrip("/")
+    try:
+        import streamlit as st
+
+        secret_url = str(st.secrets.get("FASTAPI_BASE_URL") or "").strip()
+        if secret_url:
+            return secret_url.rstrip("/")
+    except Exception:
+        pass
+    return DEFAULT_FASTAPI_BASE_URL
 
 
 def build_api_path(path):
@@ -21,8 +32,18 @@ def build_api_path(path):
 
 
 def _build_error_body(status_code, payload):
-    if isinstance(payload, dict) and isinstance(payload.get("error"), dict):
-        error_body = payload["error"]
+    error_body = None
+    if isinstance(payload, dict):
+        if isinstance(payload.get("error"), dict):
+            error_body = payload["error"]
+        elif isinstance(payload.get("detail"), dict) and isinstance(
+            payload["detail"].get("error"), dict
+        ):
+            error_body = payload["detail"]["error"]
+        elif isinstance(payload.get("detail"), str):
+            error_body = {"message": payload["detail"]}
+
+    if error_body:
         return {
             "status": error_body.get("status", status_code),
             "code": error_body.get("code", "UNKNOWN_ERROR"),

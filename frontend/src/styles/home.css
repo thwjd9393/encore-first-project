@@ -66,6 +66,21 @@ footer {
     box-shadow: var(--shadow-common);
 }
 
+.st-key-playeat_user_navbar {
+    margin: 0 auto 24px;
+    padding: 12px 24px;
+    background: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 18px;
+    box-shadow: var(--shadow-common);
+}
+
+.st-key-playeat_user_navbar div[data-testid="stButton"] > button {
+    min-height: 46px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
 
 .playeat-logo-area {
     display: flex;

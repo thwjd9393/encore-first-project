@@ -1,7 +1,16 @@
+"""관리자 로그분석 API.
+
+원본 로그 조회, 정제, 사용량·지연·오류 통계, LLM 요약, 품질평가, 개선 실험을 제공한다.
+원본 로그를 정제 결과로 덮어쓰지 않는다.
+관리자(profile_type=0)만 호출할 수 있다.
+"""
+
 from datetime import datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Depends, Query
+
+from app.admin_auth import require_admin
 
 from app.db import supabase
 from app.schemas.api_log import (
@@ -36,10 +45,14 @@ from app.services.summary_evaluation import (
     get_evaluation_run,
 )
 
-router = APIRouter(tags=["admin-logs"])
+router = APIRouter(
+    tags=["admin-logs"],
+    dependencies=[Depends(require_admin)],
+)
 
 
 def parse_period(period_start, period_end):
+    """조회 기간을 검사한다. 시작은 종료보다 이전이어야 한다."""
     if period_start is None or period_end is None:
         return None, build_error_response(
             422,
@@ -68,6 +81,7 @@ def parse_period(period_start, period_end):
 
 
 def get_cleaning_run_row(run_id):
+    """정제 실행 한 건을 조회한다."""
     result = (
         supabase.table("log_cleaning_runs")
         .select(
@@ -83,6 +97,7 @@ def get_cleaning_run_row(run_id):
 
 
 def build_cleaning_run_payload(row):
+    """정제 실행 행을 API 응답 형식으로 바꾼다."""
     return CleaningRunResponse(
         id=row["id"],
         period_start=row["period_start"],
@@ -98,6 +113,7 @@ def build_cleaning_run_payload(row):
 
 
 def build_log_item(row):
+    """원본 로그 행을 목록 항목으로 바꾼다. 본문은 넣지 않는다."""
     endpoint_path = row.get("endpoint_path") or ""
     return ApiLogItem(
         id=row["id"],
@@ -116,6 +132,7 @@ def build_log_item(row):
 
 
 def list_included_log_ids(cleaning_run_id):
+    """정제에서 통계에 포함한 로그 ID 집합을 반환한다."""
     result = (
         supabase.table("log_cleaning_results")
         .select("api_log_id")
@@ -139,6 +156,7 @@ def list_api_logs(
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=20, ge=1, le=100),
 ):
+    """원본 API 로그 목록을 기간·필터로 조회한다. 본문은 반환하지 않는다."""
     period, error_response = parse_period(period_start, period_end)
     if error_response:
         return error_response
@@ -207,6 +225,7 @@ def list_api_logs(
 
 @router.get("/admin/api-logs/{api_log_id}")
 def get_api_log(api_log_id: UUID):
+    """원본 로그 한 건과 정제 포함 여부를 반환한다."""
     try:
         result = (
             supabase.table("api_request_logs")
@@ -256,6 +275,7 @@ def get_api_log(api_log_id: UUID):
 
 @router.post("/admin/log-cleaning-runs", status_code=201)
 def create_admin_cleaning_run(payload: CleaningRunRequest):
+    """지정 기간의 원본 로그를 정제한다. 원본은 덮어쓰지 않는다."""
     try:
         run_row, _included = create_cleaning_run(
             payload.period_start,
@@ -273,6 +293,7 @@ def create_admin_cleaning_run(payload: CleaningRunRequest):
 
 @router.get("/admin/log-cleaning-runs/{run_id}")
 def get_admin_cleaning_run(run_id: UUID):
+    """정제 실행 결과를 조회한다."""
     try:
         row = get_cleaning_run_row(run_id)
     except Exception:
@@ -300,6 +321,7 @@ def get_statistics_payload(
     cleaning_run_id,
     status_class=None,
 ):
+    """사용량·지연·오류 통계 공통 조회."""
     period, error_response = parse_period(period_start, period_end)
     if error_response:
         return error_response
@@ -357,6 +379,7 @@ def get_statistics_payload(
     return build_success_response(payload.model_dump(mode="json"))
 
 
+# 요청 건수 통계
 @router.get("/admin/api-statistics/usage")
 def get_usage_statistics(
     period_start: datetime | None = None,
@@ -380,6 +403,7 @@ def get_usage_statistics(
     )
 
 
+# 응답시간 통계
 @router.get("/admin/api-statistics/latency")
 def get_latency_statistics(
     period_start: datetime | None = None,
@@ -403,6 +427,7 @@ def get_latency_statistics(
     )
 
 
+# 오류 건수·비율 통계
 @router.get("/admin/api-statistics/errors")
 def get_error_statistics(
     period_start: datetime | None = None,
@@ -428,6 +453,7 @@ def get_error_statistics(
 
 @router.post("/admin/log-summaries", status_code=201)
 def create_admin_log_summary(payload: LogSummaryRequest):
+    """정제된 로그를 LLM으로 요약하고 근거 로그를 남긴다."""
     run_row = get_cleaning_run_row(payload.cleaning_run_id)
     if not run_row:
         return build_error_response(
@@ -453,6 +479,7 @@ def create_admin_log_summary(payload: LogSummaryRequest):
 
 @router.get("/admin/log-summaries/{summary_id}")
 def get_admin_log_summary(summary_id: UUID):
+    """저장된 로그 요약과 근거를 조회한다."""
     try:
         summary = get_log_summary(summary_id)
     except Exception:
@@ -472,6 +499,7 @@ def get_admin_log_summary(summary_id: UUID):
 
 @router.post("/admin/summary-evaluation-runs", status_code=201)
 def create_admin_evaluation_run(payload: EvaluationRunRequest):
+    """요약 품질평가를 실행한다. 사실성·완전성 점수를 저장한다."""
     try:
         evaluation, error_code = create_evaluation_run(
             payload.summary_id,
@@ -502,6 +530,7 @@ def create_admin_evaluation_run(payload: EvaluationRunRequest):
 
 @router.get("/admin/summary-evaluation-runs/{run_id}")
 def get_admin_evaluation_run(run_id: UUID):
+    """품질평가 실행 결과를 조회한다."""
     try:
         evaluation = get_evaluation_run(run_id)
     except Exception:
@@ -521,6 +550,7 @@ def get_admin_evaluation_run(run_id: UUID):
 
 @router.post("/admin/improvement-experiments", status_code=201)
 def create_admin_improvement_experiment(payload: ExperimentCreateRequest):
+    """요약 개선 실험을 등록한다."""
     try:
         experiment = create_improvement_experiment(payload)
     except Exception as exc:
@@ -541,6 +571,7 @@ def create_admin_improvement_experiment(payload: ExperimentCreateRequest):
 
 @router.get("/admin/improvement-experiments/{experiment_id}")
 def get_admin_improvement_experiment(experiment_id: UUID):
+    """개선 실험과 연결된 평가 실행을 조회한다."""
     try:
         experiment = get_improvement_experiment(experiment_id)
     except Exception:

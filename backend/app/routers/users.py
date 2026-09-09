@@ -1,9 +1,22 @@
+"""사용자·회원가입 라우터.
+
+POST /auth/signups     이메일 회원 생성. 공개 가입은 일반 사용자(profile_type=1)만.
+GET  /users/me         내 프로필 조회
+PATCH /users/me        닉네임 수정
+GET  /users/me/tags    자주 사용한 태그 상위 5개
+GET  /users/me/likes   최근 긍정 평가 식당 3개
+GET  /users/me/categories  긍정 평가 카테고리 비율
+"""
+
 from datetime import datetime, timezone
+import hashlib
 import uuid
 from uuid import UUID
 from fastapi import APIRouter, HTTPException, status, Depends
+from supabase_auth.errors import AuthApiError
 
-from app.db import supabase, get_anon_client
+from app.cache import cache_delete
+from app.db import supabase
 from app.deps import get_current_user
 from app.schemas.user import (
     CurrentUser,
@@ -14,7 +27,9 @@ from app.schemas.user import (
     NicknameUpdateRequest,
 )
 
+# 마이페이지·프로필 API
 router = APIRouter(prefix="/users", tags=["users"])
+# 회원가입만 /auth 아래에 둔다. 로그인은 auth.py가 담당한다.
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
 # 표준 에러 응답 포맷 생성 함수
@@ -33,92 +48,185 @@ def create_error_response(status_code: int, code: str, message: str, details: li
         }
     )
 
+def invalidate_user_session_cache(current_user: CurrentUser):
+    """닉네임 변경 후 해당 토큰의 세션 캐시를 지운다."""
+    cache_delete(
+        f"session:{hashlib.sha256(current_user.token.encode()).hexdigest()}"
+    )
+
+
+def collect_condition_labels(conditions):
+    """추천 conditions에서 마이페이지에 보여줄 태그명을 모은다."""
+    labels = []
+    if not isinstance(conditions, dict):
+        return labels
+
+    display_names = {
+        "인당가격_하": "가성비",
+        "인당가격_중": "중간쯤",
+        "인당가격_상": "비싼거",
+        "국물여부": "국물",
+    }
+    for key in ("restaurant_category", "menu_type", "price_level"):
+        raw = conditions.get(key)
+        if not raw:
+            continue
+        labels.append(display_names.get(str(raw), str(raw)))
+
+    for tag_id in collect_condition_tag_ids(conditions):
+        tag_result = (
+            supabase.table("restaurant_tags")
+            .select("name")
+            .eq("id", str(tag_id))
+            .limit(1)
+            .execute()
+        )
+        if tag_result.data:
+            labels.append(tag_result.data[0]["name"])
+    return labels
+
+
+def is_positive_feedback(value):
+    return str(value or "").strip() == "3"
+
+
+def collect_condition_tag_ids(conditions):
+    """추천 conditions JSON에서 태그 ID를 모은다."""
+    tag_ids = []
+    if not isinstance(conditions, dict):
+        return tag_ids
+
+    for key in ("include_tag_ids", "exclude_tag_ids", "tag_ids"):
+        values = conditions.get(key) or []
+        if isinstance(values, list):
+            tag_ids.extend(values)
+
+    price_tag_id = conditions.get("price_range_tag_id")
+    if price_tag_id:
+        tag_ids.append(price_tag_id)
+    return tag_ids
+
+
+def delete_incomplete_auth_user(user_id):
+    """프로필 저장에 실패하면 Auth 사용자를 되돌린다."""
+    if not user_id:
+        return
+    try:
+        supabase.auth.admin.delete_user(user_id)
+    except Exception:
+        pass
+
+
+def raise_signup_auth_error(error):
+    """Auth 가입 오류를 409·429·500 표준 에러로 바꾼다."""
+    message = str(error).lower()
+    if "already" in message or "registered" in message or "exists" in message:
+        raise create_error_response(
+            409,
+            "EMAIL_CONFLICT",
+            "이미 등록된 이메일입니다.",
+        )
+    if "rate limit" in message:
+        raise create_error_response(
+            429,
+            "RATE_LIMITED",
+            "잠시 후 다시 시도해주세요.",
+        )
+    raise create_error_response(
+        500,
+        "INTERNAL_ERROR",
+        "회원가입 처리 중 오류가 발생했습니다.",
+    )
+
+
 @auth_router.post(
     "/signups",
     response_model=SuccessResponse[SignUpResponse],
     status_code=status.HTTP_201_CREATED
 )
 def create_user(request: SignUpRequest):
-    # 1. 닉네임 중복 확인 (profiles 테이블)
-    nickname_check = supabase.table("profiles").select("id").eq("profile_nickname", request.nickname).execute()
+    """이메일 회원을 만들고 profiles·user_consents를 함께 저장한다."""
+    nickname_check = (
+        supabase.table("profiles")
+        .select("id")
+        .eq("profile_nickname", request.nickname)
+        .execute()
+    )
     if nickname_check.data:
         raise create_error_response(409, "NICKNAME_CONFLICT", "이미 사용 중인 닉네임입니다.")
 
-    # 2. 인증 요청용 auth_client 생성
-    auth_client = get_anon_client()
     new_user_id = None
 
     try:
-        # 3. Supabase Auth에 계정 생성
-        auth_response = auth_client.auth.sign_up({
-            "email": request.email,
-            "password": request.password,
-        })
-
+        # 공개 signup은 확인 메일 한도에 걸린다. 서비스 롤로 생성하고 즉시 로그인 가능하게 한다.
+        auth_response = supabase.auth.admin.create_user(
+            {
+                "email": str(request.email),
+                "password": request.password,
+                "email_confirm": True,
+            }
+        )
         if not auth_response.user:
             raise create_error_response(409, "EMAIL_CONFLICT", "이미 등록된 이메일입니다.")
-        
+
         new_user_id = auth_response.user.id
-
-        # 4. profiles 테이블에 사용자 정보 저장
-        profile_data = {
-            "id": new_user_id,
-            "profile_nickname": request.nickname,
-            "profile_type": "1",  # 1: 일반 사용자
-            "profile_status": "1" # 1: 활성 상태
-        }
-        profile_result = supabase.table("profiles").insert(profile_data).execute()
-        
+        profile_result = (
+            supabase.table("profiles")
+            .insert(
+                {
+                    "id": new_user_id,
+                    "profile_nickname": request.nickname,
+                    "profile_type": "1",
+                    "profile_status": "1",
+                }
+            )
+            .execute()
+        )
         if not profile_result.data:
-            raise Exception("프로필 저장에 실패했습니다.")
+            raise RuntimeError("프로필 저장에 실패했습니다.")
 
-        # 5. user_consents 테이블에 약관 동의 이력 저장 (버전: terms-v1.0, privacy-v1.0)
-        consents_data = [
-            {
-                "profile_id": new_user_id,
-                "consent_type": "terms",
-                "consent_version": "terms-v1.0",
-                "is_agreed": request.terms_agreed
-            },
-            {
-                "profile_id": new_user_id,
-                "consent_type": "privacy",
-                "consent_version": "privacy-v1.0",
-                "is_agreed": request.privacy_agreed
-            }
-        ]
-        supabase.table("user_consents").insert(consents_data).execute()
+        supabase.table("user_consents").insert(
+            [
+                {
+                    "profile_id": new_user_id,
+                    "consent_type": "terms",
+                    "consent_version": "terms-v1.0",
+                    "is_agreed": request.terms_agreed,
+                },
+                {
+                    "profile_id": new_user_id,
+                    "consent_type": "privacy",
+                    "consent_version": "privacy-v1.0",
+                    "is_agreed": request.privacy_agreed,
+                },
+            ]
+        ).execute()
 
-        # 6. 성공 결과 반환
         return SuccessResponse(
             data=SignUpResponse(
                 user_id=new_user_id,
                 email=request.email,
                 nickname=request.nickname,
-                created_at=profile_result.data[0]["profile_created_at"]
+                created_at=profile_result.data[0]["profile_created_at"],
             ),
             meta=ResponseMeta(
                 request_id=uuid.uuid4(),
-                timestamp=datetime.now(timezone.utc)
-            )
+                timestamp=datetime.now(timezone.utc),
+            ),
         )
 
-    except Exception as e:
-        # 에러 발생 시 Supabase Auth에 생성된 계정 롤백(삭제) 처리
-        if new_user_id:
-            try:
-                supabase.auth.admin.delete_user(new_user_id)
-            except Exception:
-                pass
-
-        if isinstance(e, HTTPException):
-            raise e
-            
+    except HTTPException:
+        delete_incomplete_auth_user(new_user_id)
+        raise
+    except AuthApiError as error:
+        delete_incomplete_auth_user(new_user_id)
+        raise_signup_auth_error(error)
+    except Exception:
+        delete_incomplete_auth_user(new_user_id)
         raise create_error_response(
-            status_code=500,
-            code="INTERNAL_ERROR",
-            message="회원가입 처리 중 오류가 발생했습니다.",
-            details=[{"field": "server", "reason": str(e)}]
+            500,
+            "INTERNAL_ERROR",
+            "회원가입 처리 중 오류가 발생했습니다.",
         )
 
 # 현재 로그인한 사용자 정보 조회하기
@@ -126,6 +234,7 @@ def create_user(request: SignUpRequest):
 def get_my_profile(
     current_user: CurrentUser = Depends(get_current_user),
 ):
+    """로그인한 사용자의 이메일과 닉네임을 반환한다."""
     # 현재 사용자의 프로필 조회하기
     profile_result = (
         supabase
@@ -155,88 +264,41 @@ def get_my_profile(
 def get_my_tags(
     current_user: CurrentUser = Depends(get_current_user),
 ):
-    # 현재 사용자가 좋아요를 누른 식당 조회하기
-    feedback_result = (
+    """저장된 추천 조건에 포함된 태그 사용 횟수 상위 5개를 반환한다."""
+    recommendation_result = (
         supabase
-        .table("feedback")
-        .select("restaurant_id")
+        .table("recommendations")
+        .select("conditions")
         .eq("profile_id", current_user.id)
-        .eq("feedback_value", "3")
         .execute()
     )
 
-    # 좋아요한 식당이 없으면 안내 문구 반환하기
-    if not feedback_result.data:
+    if not recommendation_result.data:
         return {
             "tags": [],
             "message": "아직 사용한 태그가 없습니다."
         }
 
-    restaurant_ids = [
-        feedback["restaurant_id"]
-        for feedback in feedback_result.data
-    ]
-
-    # 좋아요한 식당에 연결된 태그 조회하기
-    tag_map_result = (
-        supabase
-        .table("restaurant_tag_map")
-        .select("tag_id")
-        .in_("restaurant_id", restaurant_ids)
-        .execute()
-    )
-
-    # 연결된 태그가 없으면 안내 문구 반환하기
-    if not tag_map_result.data:
-        return {
-            "tags": [],
-            "message": "아직 사용한 태그가 없습니다."
-        }
-
-    # 태그별 등장 횟수 계산하기
     tag_counts = {}
+    for recommendation in recommendation_result.data:
+        for label in collect_condition_labels(recommendation.get("conditions")):
+            if not label:
+                continue
+            tag_counts[label] = tag_counts.get(label, 0) + 1
 
-    for tag_map in tag_map_result.data:
-        tag_id = tag_map["tag_id"]
+    if not tag_counts:
+        return {
+            "tags": [],
+            "message": "아직 사용한 태그가 없습니다."
+        }
 
-        if tag_id in tag_counts:
-            tag_counts[tag_id] += 1
-        else:
-            tag_counts[tag_id] = 1
-
-    # 많이 등장한 태그 순으로 정렬하기
     sorted_tags = sorted(
         tag_counts.items(),
         key=lambda item: item[1],
         reverse=True,
     )
-
-    tags = []
-
-    # 최대 3개의 태그만 조회하기
-    for tag_id, _ in sorted_tags[:3]:
-        tag_result = (
-            supabase
-            .table("restaurant_tags")
-            .select("name")
-            .eq("id", tag_id)
-            .single()
-            .execute()
-        )
-
-        if tag_result.data:
-            tags.append(tag_result.data["name"])
-
-    # 실제 존재하는 태그만 반환하기
-    if tags:
-        return {
-            "tags": tags
-        }
-
-    # 최종적으로 조회된 태그가 하나도 없는 경우
     return {
-        "tags": [],
-        "message": "아직 사용한 태그가 없습니다."
+        "tags": [label for label, _ in sorted_tags[:5]]
     }
 
 # 최근 좋아요 식당 조회하기
@@ -244,41 +306,44 @@ def get_my_tags(
 def get_my_likes(
     current_user: CurrentUser = Depends(get_current_user),
 ):
+    """feedback_value=3 평가를 최신순으로 서로 다른 식당 3개를 반환한다."""
     # 현재 사용자가 좋아요를 누른 식당을 최근 순으로 조회하기
     feedback_result = (
         supabase
         .table("feedback")
-        .select("restaurant_id")
+        .select(
+            "restaurant_id, feedback_value, created_at, "
+            "restaurants(id, name, address, road_address, category_id, "
+            "restaurant_categories(name))"
+        )
         .eq("profile_id", current_user.id)
-        .eq("feedback_value", "3")
         .order("created_at", desc=True)
-        .limit(3)
+        .limit(50)
         .execute()
     )
 
-    # 좋아요한 식당이 없으면 빈 목록 반환하기
-    if not feedback_result.data:
-        return {
-            "restaurants": []
-        }
-
     restaurants = []
-
-    # 좋아요한 식당의 정보 조회하기
-    for feedback in feedback_result.data:
-        restaurant_result = (
-            supabase
-            .table("restaurants")
-            .select("id, name, address")
-            .eq("id", feedback["restaurant_id"])
-            .single()
-            .execute()
+    seen_restaurant_ids = set()
+    for row in feedback_result.data or []:
+        if not is_positive_feedback(row.get("feedback_value")):
+            continue
+        restaurant_id = str(row.get("restaurant_id") or "")
+        if not restaurant_id or restaurant_id in seen_restaurant_ids:
+            continue
+        restaurant = row.get("restaurants") or {}
+        if not isinstance(restaurant, dict) or not restaurant.get("name"):
+            continue
+        seen_restaurant_ids.add(restaurant_id)
+        restaurants.append(
+            {
+                "id": restaurant.get("id") or restaurant_id,
+                "name": restaurant.get("name"),
+                "address": restaurant.get("road_address") or restaurant.get("address"),
+            }
         )
+        if len(restaurants) >= 3:
+            break
 
-        if restaurant_result.data:
-            restaurants.append(restaurant_result.data)
-
-    # 최근 좋아요 식당 반환하기
     return {
         "restaurants": restaurants
     }
@@ -288,79 +353,54 @@ def get_my_likes(
 def get_my_categories(
     current_user: CurrentUser = Depends(get_current_user),
 ):
+    """긍정 평가 식당을 음식 카테고리별로 나눈 비율을 반환한다."""
     # 현재 사용자가 좋아요를 누른 식당 조회하기
     feedback_result = (
         supabase
         .table("feedback")
-        .select("restaurant_id")
-        .eq("profile_id", current_user.id)
-        .eq("feedback_value", "3")
-        .execute()
-    )
-
-    # 좋아요한 식당이 없으면 빈 목록 반환하기
-    if not feedback_result.data:
-        return {
-            "categories": []
-        }
-
-    restaurant_ids = [
-        feedback["restaurant_id"]
-        for feedback in feedback_result.data
-    ]
-
-    # 좋아요한 식당들의 카테고리 조회하기
-    restaurant_result = (
-        supabase
-        .table("restaurants")
-        .select("category_id")
-        .in_("id", restaurant_ids)
-        .execute()
-    )
-
-    # 카테고리 정보가 없으면 빈 목록 반환하기
-    if not restaurant_result.data:
-        return {
-            "categories": []
-        }
-
-    # 카테고리별 개수 계산하기
-    category_counts = {}
-
-    for restaurant in restaurant_result.data:
-        category_id = restaurant["category_id"]
-
-        if category_id in category_counts:
-            category_counts[category_id] += 1
-        else:
-            category_counts[category_id] = 1
-
-    total_count = len(restaurant_result.data)
-    categories = []
-
-    # 카테고리 이름과 비율 조회하기
-    for category_id, count in category_counts.items():
-        category_result = (
-            supabase
-            .table("restaurant_categories")
-            .select("name")
-            .eq("id", category_id)
-            .single()
-            .execute()
+        .select(
+            "restaurant_id, feedback_value, "
+            "restaurants(category_id, restaurant_categories(name))"
         )
-
-        if category_result.data:
-            categories.append({
-                "name": category_result.data["name"],
-                "percentage": round(count / total_count * 100)
-            })
-
-    # 비율이 높은 카테고리부터 정렬하기
-    categories.sort(
-        key=lambda category: category["percentage"],
-        reverse=True,
+        .eq("profile_id", current_user.id)
+        .execute()
     )
 
+    liked_rows = [
+        row
+        for row in feedback_result.data or []
+        if is_positive_feedback(row.get("feedback_value"))
+    ]
+    if not liked_rows:
+        return {
+            "categories": []
+        }
+
+    category_counts = {}
+    for row in liked_rows:
+        restaurant = row.get("restaurants") or {}
+        if not isinstance(restaurant, dict):
+            continue
+        category = restaurant.get("restaurant_categories") or {}
+        name = category.get("name") if isinstance(category, dict) else None
+        if not name:
+            continue
+        category_counts[name] = category_counts.get(name, 0) + 1
+
+    total_count = sum(category_counts.values())
+    if not total_count:
+        return {
+            "categories": []
+        }
+
+    categories = [
+        {
+            "name": name,
+            "percentage": round(count / total_count * 100),
+        }
+        for name, count in category_counts.items()
+    ]
+    categories.sort(key=lambda item: item["percentage"], reverse=True)
     return {
         "categories": categories
     }
@@ -371,6 +411,7 @@ def update_my_profile(
     request: NicknameUpdateRequest,
     current_user: CurrentUser = Depends(get_current_user),
 ):
+    """닉네임을 수정한다. 다른 사용자와 중복이면 409."""
     # 변경하려는 닉네임이 이미 사용 중인지 확인하기
     nickname_check = (
         supabase
@@ -411,7 +452,10 @@ def update_my_profile(
             "사용자 프로필을 찾을 수 없습니다.",
         )
 
+    invalidate_user_session_cache(current_user)
+
     # 수정된 닉네임 반환하기
     return {
-        "nickname": request.nickname
+        "email": current_user.email,
+        "nickname": request.nickname,
     }

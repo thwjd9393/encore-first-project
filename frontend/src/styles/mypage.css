@@ -39,6 +39,120 @@ header[data-testid="stHeader"] {
     padding-bottom: 35px;
 }
 
+.playeat-navbar {
+    min-height: 90px;
+    margin: 0 auto 24px;
+    padding: 18px 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 18px;
+    box-shadow: var(--shadow-common);
+}
+
+.st-key-playeat_user_navbar {
+    margin: 0 auto 24px;
+    padding: 12px 24px;
+    background: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 18px;
+    box-shadow: var(--shadow-common);
+}
+
+.st-key-playeat_user_navbar div[data-testid="stButton"] > button {
+    min-height: 46px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.playeat-logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.playeat-symbol {
+    font-size: 35px;
+}
+
+.playeat-logo {
+    color: #163D56;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.playeat-logo span {
+    color: var(--color-primary);
+}
+
+.playeat-logo-sub {
+    margin-top: 2px;
+    color: #29465B;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.playeat-logo-sub strong {
+    color: var(--color-primary);
+}
+
+.playeat-nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.nav-item,
+.logout-button {
+    text-decoration: none;
+}
+
+.nav-item {
+    position: relative;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    color: #28455A;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.nav-item.active {
+    color: var(--color-primary);
+}
+
+.nav-item.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: 10px;
+}
+
+.logout-button {
+    min-width: 145px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-weight: 700;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 12px;
+}
+
+.empty-hint {
+    color: var(--color-muted);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
 /* ----------------------------------
    상단
    ---------------------------------- */

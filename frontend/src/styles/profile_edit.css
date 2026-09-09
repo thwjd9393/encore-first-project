@@ -39,7 +39,8 @@
    기본 정보 카드
    --------------------------------------------------------- */
 
-.st-key-profile_edit_card {
+.st-key-profile_edit_card,
+.st-key-password_change_card {
     box-sizing: border-box;
 
     width: 100%;

@@ -1,8 +1,21 @@
+"""식당·메뉴·태그 조회와 관리자 비활성화.
+
+GET /restaurant-categories
+GET /restaurants
+GET /restaurants/search
+GET /restaurants/{restaurant_id}
+GET /tag-categories
+GET /restaurant-tags
+GET /restaurant-tags/{category_id}
+DELETE /admin/restaurants/{restaurant_id}  관리자만. 식당을 비활성화한다.
+"""
+
 import random
 from uuid import UUID
 
-from fastapi import APIRouter, Query, Response
+from fastapi import APIRouter, Depends, Query, Response
 
+from app.admin_auth import require_admin
 from app.db import supabase
 from app.schemas.common import build_error_response, build_success_response
 from app.schemas.restaurant import (
@@ -17,6 +30,7 @@ router = APIRouter(tags=["restaurants"])
 
 
 def get_category_name(row):
+    """조인된 restaurant_categories에서 카테고리명을 꺼낸다."""
     category = row.get("restaurant_categories")
     if isinstance(category, dict):
         return category.get("name")
@@ -24,6 +38,7 @@ def get_category_name(row):
 
 
 def build_restaurant_item(row, menus, matched_tags):
+    """DB 행을 RestaurantSummary JSON으로 바꾼다."""
     return RestaurantSummary(
         id=row["id"],
         name=row["name"],
@@ -43,6 +58,7 @@ def build_restaurant_item(row, menus, matched_tags):
 
 
 def list_menus_by_restaurant_ids(restaurant_ids):
+    """여러 식당의 메뉴를 restaurant_id별로 묶는다."""
     if not restaurant_ids:
         return {}
     result = (
@@ -66,6 +82,7 @@ def list_menus_by_restaurant_ids(restaurant_ids):
 
 
 def list_tags_by_restaurant_ids(restaurant_ids):
+    """여러 식당의 태그명을 restaurant_id별로 묶는다."""
     if not restaurant_ids:
         return {}
     result = (
@@ -85,6 +102,7 @@ def list_tags_by_restaurant_ids(restaurant_ids):
 
 @router.get("/restaurant-categories")
 def list_restaurant_categories():
+    """음식 카테고리 목록을 반환한다."""
     try:
         result = (
             supabase.table("restaurant_categories")
@@ -111,6 +129,7 @@ def list_restaurants(
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=20, ge=1, le=100),
 ):
+    """식당 목록을 페이지 단위로 반환한다."""
     start = (page - 1) * page_size
     end = start + page_size - 1
     try:
@@ -155,6 +174,106 @@ def list_restaurants(
         total_count=result.count or 0,
     )
 
+def select_matching_restaurant(
+    category: str | None = None,
+    menu_types: list[str] | None = None,
+    price_level: str | None = None,
+    exclude_ids: list[str] | None = None,
+):
+    """
+    활성 식당 중에서 조건 점수가 가장 높은 식당 하나를 고른다.
+
+    Gemini가 식당을 만들지 않고, DB에 있는 52개만 사용한다.
+    같은 대화에서 이미 추천한 식당은 exclude_ids로 빼 둔다.
+    """
+
+    result = (
+        supabase.table("restaurants")
+        .select("*, restaurant_categories(name)")
+        .eq("is_active", True)
+        .execute()
+    )
+    rows = result.data or []
+    if not rows:
+        return None
+
+    restaurant_ids = [row["id"] for row in rows]
+    menus_by_restaurant_id = list_menus_by_restaurant_ids(restaurant_ids)
+    tags_by_restaurant_id = list_tags_by_restaurant_ids(restaurant_ids)
+
+    def lookup(mapping, restaurant_id):
+        return mapping.get(restaurant_id) or mapping.get(str(restaurant_id), [])
+
+    required_tags = []
+    if menu_types:
+        required_tags.extend(
+            tag for tag in menu_types if tag
+        )
+    if price_level:
+        required_tags.append(price_level)
+
+    scored_items = []
+    for row in rows:
+        restaurant_id = row["id"]
+        restaurant_tags = lookup(tags_by_restaurant_id, restaurant_id)
+        score = 0
+        matched_conditions = []
+        restaurant_category = get_category_name(row)
+        if category and restaurant_category == category:
+            score += 1
+            matched_conditions.append(category)
+        for tag in required_tags:
+            if tag in restaurant_tags:
+                score += 1
+                matched_conditions.append(tag)
+
+        total_conditions = len(required_tags)
+        if category:
+            total_conditions += 1
+
+        item = build_restaurant_item(
+            row,
+            lookup(menus_by_restaurant_id, restaurant_id),
+            restaurant_tags,
+        )
+        item["match_score"] = score
+        item["total_conditions"] = total_conditions
+        item["matched_conditions"] = matched_conditions
+        item["match_rate"] = (
+            round(score / total_conditions * 100, 1)
+            if total_conditions > 0
+            else 0
+        )
+        scored_items.append(item)
+
+    if category or required_tags:
+        filtered = [
+            item for item in scored_items if item["match_score"] > 0
+        ]
+        has_filter_data = any(
+            item.get("category_name") or item.get("matched_tags")
+            for item in scored_items
+        )
+        scored_items = filtered if (filtered or has_filter_data) else scored_items
+    if not scored_items:
+        return None
+
+    excluded = {str(item_id) for item_id in (exclude_ids or [])}
+
+    def item_id(item):
+        return str(item.get("id") or "")
+
+    remaining = [
+        item for item in scored_items if item_id(item) not in excluded
+    ]
+    pool = remaining or scored_items
+    max_score = max(item["match_score"] for item in pool)
+    top_items = [
+        item for item in pool if item["match_score"] == max_score
+    ]
+    return random.choice(top_items)
+
+
 @router.get("/restaurants/search")
 def search_restaurants(
     category: str | None = Query(default=None),
@@ -169,15 +288,12 @@ def search_restaurants(
     점수가 높은 식당부터 반환한다.
     """
 
-    # 1. 활성화된 식당 전체 조회
     try:
-        result = (
-            supabase.table("restaurants")
-            .select("*, restaurant_categories(name)")
-            .eq("is_active", True)
-            .execute()
+        item = select_matching_restaurant(
+            category=category,
+            menu_types=menu_types,
+            price_level=price_level,
         )
-
     except Exception:
         return build_error_response(
             503,
@@ -185,163 +301,12 @@ def search_restaurants(
             "데이터베이스에 연결하지 못했습니다.",
         )
 
-    rows = result.data or []
-
-    if not rows:
-        return build_success_response(
-            {
-                "items": None,
-            }
-        )
-
-    # 2. 식당 ID 목록
-    restaurant_ids = [
-        row["id"]
-        for row in rows
-    ]
-
-    # 3. 메뉴 / 태그 조회
-    try:
-        menus_by_restaurant_id = (
-            list_menus_by_restaurant_ids(
-                restaurant_ids
-            )
-        )
-
-        tags_by_restaurant_id = (
-            list_tags_by_restaurant_ids(
-                restaurant_ids
-            )
-        )
-
-    except Exception:
-        return build_error_response(
-            503,
-            "DATABASE_UNAVAILABLE",
-            "데이터베이스에 연결하지 못했습니다.",
-        )
-
-    # 4. 사용자가 선택한 태그 정리
-    required_tags = []
-
-    if menu_types:
-        required_tags.extend(menu_types)
-
-    if price_level:
-        required_tags.append(price_level)
-
-    # 5. 식당별 점수 계산
-    scored_items = []
-
-    for row in rows:
-
-        restaurant_id = row["id"]
-
-        restaurant_tags = tags_by_restaurant_id.get(
-            restaurant_id,
-            [],
-        )
-
-        # 점수
-        score = 0
-
-        matched_conditions = []
-
-        # 음식문화권 비교
-        restaurant_category = get_category_name(row)
-
-        if category and restaurant_category == category:
-            score += 1
-
-            matched_conditions.append(
-                category
-            )
-
-        # 태그 비교
-        for tag in required_tags:
-
-            if tag in restaurant_tags:
-                score += 1
-
-                matched_conditions.append(
-                    tag
-                )
-
-        # 총 선택 조건 개수
-        total_conditions = len(required_tags)
-
-        if category:
-            total_conditions += 1
-
-        # 기본 식당 데이터
-        item = build_restaurant_item(
-            row,
-            menus_by_restaurant_id.get(
-                restaurant_id,
-                [],
-            ),
-            restaurant_tags,
-        )
-
-        # 추천 관련 정보 추가
-        item["match_score"] = score
-
-        item["total_conditions"] = total_conditions
-
-        item["matched_conditions"] = matched_conditions
-
-        # 일치율
-        if total_conditions > 0:
-            item["match_rate"] = round(
-                score / total_conditions * 100,
-                1,
-            )
-        else:
-            item["match_rate"] = 0
-
-        scored_items.append(item)
-
-    # 6. 하나도 맞지 않는 식당 제거
-    if category or required_tags:
-        scored_items = [
-            item
-            for item in scored_items
-            if item["match_score"] > 0
-        ]
-
-    # 추천할 식당이 없는 경우
-    if not scored_items:
-        return build_success_response(
-            {
-                "item": None,
-            }
-        )
-
-    # 7. 가장 높은 점수 찾기
-    max_score = max(
-        item["match_score"]
-        for item in scored_items
-    )
-
-    # 8. 최고 점수인 식당들만 추리기
-    top_items = [
-        item
-        for item in scored_items
-        if item["match_score"] == max_score
-    ]
-
-    # 9. 최고 점수 식당 중 하나 랜덤 선택
-    item = random.choice(top_items)
-
-    return build_success_response(
-        {
-            "item": item,
-        }
-    )
+    return build_success_response({"item": item})
 
 
 @router.get("/restaurants/{restaurant_id}")
 def get_restaurant(restaurant_id: UUID):
+    """식당 한 곳의 상세·메뉴·태그를 반환한다."""
     try:
         result = (
             supabase.table("restaurants")
@@ -387,6 +352,7 @@ def get_restaurant(restaurant_id: UUID):
 
 @router.get("/tag-categories")
 def list_tag_categories():
+    """가격대·메뉴 특성 등 태그 분류 목록을 반환한다."""
     try:
         result = (
             supabase.table("tag_categories")
@@ -411,6 +377,7 @@ def list_tag_categories():
 
 @router.get("/restaurant-tags/{category_id}")
 def list_restaurant_tags_by_category(category_id: UUID):
+    """선택한 분류에 속한 태그를 반환한다."""
     try:
         result = (
             supabase.table("restaurant_tags")
@@ -441,6 +408,7 @@ def list_restaurant_tags_by_category(category_id: UUID):
 
 @router.get("/restaurant-tags")
 def list_restaurant_tags():
+    """전체 식당 태그를 반환한다."""
     try:
         result = (
             supabase.table("restaurant_tags")
@@ -466,7 +434,11 @@ def list_restaurant_tags():
 
 
 @router.delete("/admin/restaurants/{restaurant_id}")
-def delete_admin_restaurant(restaurant_id: UUID):
+def delete_admin_restaurant(
+    restaurant_id: UUID,
+    _admin=Depends(require_admin),
+):
+    """관리자가 식당을 비활성화한다. 행은 삭제하지 않는다."""
     try:
         result = (
             supabase.table("restaurants")

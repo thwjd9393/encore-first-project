@@ -14,37 +14,35 @@
 import datetime
 import json
 import time
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
-from google.genai import types
 
-from app.deps import require_own_conversation
+from app.deps import get_current_user, require_own_conversation
 from app.db import supabase
 from app.gemini_client import (
     GEMINI_MODEL,
     MENU_TYPES,
     PRICE_LEVELS,
     RESTAURANT_CATEGORIES,
-    build_system_prompt,
-    client,
+    extract_conditions,
+    generate_reason_from_facts,
 )
 from app.redis_client import r
+from app.request_context import get_current_request_id
+from app.routers.restaurants import select_matching_restaurant
+from app.routers.search_stats import record_search_conditions
+from app.schemas.user import CurrentUser
 
-# 메시지 생성 / 조회
 from app.routers.conversations import (
     create_message,
     list_messages,
 )
 
-from app.schemas import (
-    ChatRequest,
-    FeedbackRequest,
-    MessageCreate,
-    MessageOut,
-    RegenerateRequest,
-)
+from app.schemas.chat import ChatRequest, RegenerateRequest
+from app.schemas.feedback import FeedbackRequest
+from app.schemas.message import MessageCreate, MessageOut
 
 
 # =========================================================
@@ -177,12 +175,14 @@ def _build_history(
 def _usage_log_key(
     conversation_id: UUID,
 ) -> str:
+    """대화별 Gemini 사용량 로그 Redis 키."""
     return f"usage_log:{conversation_id}"
 
 
 def _feedback_key(
     conversation_id: UUID,
 ) -> str:
+    """대화별 메시지 피드백 Redis 키."""
     return f"feedback:{conversation_id}"
 
 
@@ -231,6 +231,9 @@ def _log_usage(
         conversation_id
     )
 
+    if r is None:
+        return
+
     r.lpush(
         key,
         json.dumps(entry),
@@ -263,6 +266,12 @@ def save_feedback(
     key = _feedback_key(
         conversation_id
     )
+
+    if r is None:
+        return {
+            "message_id": str(payload.message_id),
+            "value": payload.value,
+        }
 
     if payload.value is None:
 
@@ -299,6 +308,9 @@ def read_feedback(
     현재 대화방의 피드백 상태를 반환한다.
     """
 
+    if r is None:
+        return {}
+
     return r.hgetall(
         _feedback_key(
             conversation_id
@@ -318,6 +330,10 @@ def usage_logs(
         require_own_conversation
     ),
 ):
+    """대화에서 Gemini를 호출한 사용량 로그를 반환한다."""
+
+    if r is None:
+        return []
 
     raw = r.lrange(
         _usage_log_key(
@@ -363,142 +379,150 @@ def reset_context(
 
 
 # =========================================================
-# 7. Gemini 스트리밍 응답
+# 7. DB 식당 추천 + 이유 생성
 # =========================================================
 
-def _stream_answer(
+def _list_recommended_restaurant_ids(conversation_id: UUID) -> list[str]:
+    """같은 대화에서 이미 추천한 식당 ID."""
+    result = (
+        supabase.table("recommendations")
+        .select("restaurant_id")
+        .eq("conversation_id", str(conversation_id))
+        .order("created_at")
+        .execute()
+    )
+    return [str(row["restaurant_id"]) for row in result.data or []]
+
+
+def _merge_conditions(selected: dict, extracted: dict) -> dict:
+    """화면 선택값이 있으면 그 값을 쓰고, 없으면 자연어 추출값을 쓴다."""
+    return {
+        "restaurant_category": (
+            selected.get("restaurant_category")
+            or extracted.get("restaurant_category")
+        ),
+        "menu_type": selected.get("menu_type") or extracted.get("menu_type"),
+        "price_level": selected.get("price_level") or extracted.get("price_level"),
+    }
+
+
+def _save_recommendation(
+    profile_id: str,
     conversation_id: UUID,
-    contents: list,
+    restaurant: dict,
+    conditions: dict,
+    reason_text: str,
+    reason_source: str,
+):
+    """추천 결과를 recommendations에 저장한다."""
+    result = (
+        supabase.table("recommendations")
+        .insert(
+            {
+                "request_id": str(get_current_request_id() or uuid4()),
+                "profile_id": str(profile_id),
+                "conversation_id": str(conversation_id),
+                "restaurant_id": str(restaurant["id"]),
+                "conditions": conditions,
+                "reason_text": (reason_text or "")[:300] or None,
+                "reason_source": reason_source,
+                "model_name": GEMINI_MODEL,
+                "prompt_version": "prd-baseline-1.0",
+            }
+        )
+        .execute()
+    )
+    if not result.data:
+        return None
+    return result.data[0]
+
+
+def _sse(payload: dict) -> str:
+    return "data: " + json.dumps(payload, ensure_ascii=False, default=str) + "\n\n"
+
+
+def _stream_recommendation(
+    conversation_id: UUID,
+    profile_id: str,
+    user_text: str,
+    selected: dict,
 ):
     """
-    Gemini 음식점 추천 응답을 스트리밍한다.
-
-    응답이 끝나면 전체 답변을 DB에 저장한다.
+    Gemini로 조건만 추출한 뒤 DB 52개 식당에서 하나를 고른다.
+    추천 이유는 DB 사실을 근거로 만든다.
     """
 
     def event_stream():
-
         started_at = time.monotonic()
-
-        full_text = ""
-
-        last_usage = None
-
         try:
-
-            # =============================================
-            # Gemini 호출
-            # =============================================
-
-            for chunk in (
-                client.models
-                .generate_content_stream(
-                    model=GEMINI_MODEL,
-                    contents=contents,
-                    config=types.GenerateContentConfig(
-                        system_instruction=(
-                            build_system_prompt()
-                        )
-                    ),
+            extracted = extract_conditions(user_text)
+            conditions = _merge_conditions(selected, extracted)
+            exclude_ids = _list_recommended_restaurant_ids(conversation_id)
+            restaurant = select_matching_restaurant(
+                category=conditions["restaurant_category"],
+                menu_types=(
+                    [conditions["menu_type"]]
+                    if conditions["menu_type"]
+                    else None
+                ),
+                price_level=conditions["price_level"],
+                exclude_ids=exclude_ids,
+            )
+            if not restaurant:
+                record_search_conditions(conditions)
+                text = (
+                    "조건에 맞는 식당이 없습니다. "
+                    "음식 종류나 태그를 바꿔 다시 검색해 주세요."
                 )
-            ):
-
-                if chunk.text:
-
-                    full_text += chunk.text
-
-                    yield (
-                        "data: "
-                        + json.dumps(
-                            {
-                                "text": chunk.text
-                            }
-                        )
-                        + "\n\n"
-                    )
-
-                if chunk.usage_metadata:
-
-                    last_usage = (
-                        chunk.usage_metadata
-                    )
-
-            # =============================================
-            # 빈 응답
-            # =============================================
-
-            if not full_text:
-
-                yield (
-                    "data: "
-                    + json.dumps(
-                        {
-                            "error": (
-                                "모델이 빈 응답을 "
-                                "돌려주었습니다."
-                            )
-                        }
-                    )
-                    + "\n\n"
+                saved = create_message(
+                    conversation_id,
+                    MessageCreate(role="assistant", content=text),
                 )
-
+                yield _sse({"text": text})
+                yield _sse(
+                    {
+                        "done": True,
+                        "message_id": str(saved["id"]),
+                        "restaurant": None,
+                    }
+                )
                 return
 
-            # =============================================
-            # Assistant 메시지 저장
-            # =============================================
+            reason_text, reason_source = generate_reason_from_facts(restaurant)
+            saved_rec = _save_recommendation(
+                profile_id,
+                conversation_id,
+                restaurant,
+                conditions,
+                reason_text,
+                reason_source,
+            )
+            if not saved_rec:
+                yield _sse({"error": "추천 결과를 저장하지 못했습니다."})
+                return
+            record_search_conditions(
+                conditions,
+                food_label=restaurant.get("category_name"),
+            )
 
             saved = create_message(
                 conversation_id,
-                MessageCreate(
-                    role="assistant",
-                    content=full_text,
-                ),
+                MessageCreate(role="assistant", content=reason_text),
             )
-
-            # =============================================
-            # 사용량 기록
-            # =============================================
-
-            _log_usage(
-                conversation_id,
-                started_at,
-                last_usage,
+            _log_usage(conversation_id, started_at, None)
+            yield _sse({"text": reason_text})
+            yield _sse(
+                {
+                    "done": True,
+                    "message_id": str(saved["id"]),
+                    "recommendation_id": str(saved_rec["id"]),
+                    "restaurant": restaurant,
+                }
             )
-
-            # =============================================
-            # 스트리밍 완료
-            # =============================================
-
-            yield (
-                "data: "
-                + json.dumps(
-                    {
-                        "done": True,
-                        "message_id": str(
-                            saved["id"]
-                        ),
-                    }
-                )
-                + "\n\n"
-            )
-
-        except Exception as e:
-
-            yield (
-                "data: "
-                + json.dumps(
-                    {
-                        "error": (
-                            f"{type(e).__name__}: "
-                            f"{e}"
-                        )
-                    }
-                )
-                + "\n\n"
-            )
-
-            return
+        except HTTPException as e:
+            yield _sse({"error": str(e.detail)})
+        except Exception:
+            yield _sse({"error": "추천 엔진을 사용할 수 없습니다."})
 
     return StreamingResponse(
         event_stream(),
@@ -518,12 +542,10 @@ def regenerate(
     conversation_id: UUID = Depends(
         require_own_conversation
     ),
+    current_user: CurrentUser = Depends(get_current_user),
 ):
     """
-    마지막 AI 추천 답변을 삭제하고 다시 생성한다.
-
-    사용자 질문은 유지하고
-    마지막 assistant 메시지만 삭제한다.
+    마지막 AI 추천 답변을 삭제하고 같은 조건으로 다음 식당을 고른다.
     """
 
     messages = list_messages(
@@ -543,9 +565,19 @@ def regenerate(
             ),
         )
 
-    # -----------------------------------------------------
-    # 마지막 assistant 메시지 삭제
-    # -----------------------------------------------------
+    last_user = next(
+        (
+            message
+            for message in reversed(messages)
+            if message["role"] == "user"
+        ),
+        None,
+    )
+    if not last_user:
+        raise HTTPException(
+            status_code=400,
+            detail="다시 생성할 질문이 없습니다.",
+        )
 
     supabase.table(
         "messages"
@@ -554,28 +586,34 @@ def regenerate(
         messages[-1]["id"],
     ).execute()
 
-    # Redis 캐시 삭제
-    r.delete(
-        f"messages:{conversation_id}"
-    )
-
-    # 삭제 후의 대화 내역
-    history = _build_history(
-        conversation_id
-    )
-
-    if not history:
-        raise HTTPException(
-            status_code=400,
-            detail=(
-                "다시 생성할 "
-                "질문이 없습니다."
-            ),
+    if r is not None:
+        r.delete(
+            f"messages:{conversation_id}"
         )
 
-    return _stream_answer(
+    last_rec = (
+        supabase.table("recommendations")
+        .select("conditions")
+        .eq("conversation_id", str(conversation_id))
+        .order("created_at", desc=True)
+        .limit(1)
+        .execute()
+    )
+    conditions = {}
+    if last_rec.data:
+        stored = last_rec.data[0].get("conditions") or {}
+        if isinstance(stored, dict):
+            conditions = stored
+
+    return _stream_recommendation(
         conversation_id,
-        history,
+        current_user.id,
+        last_user["content"],
+        {
+            "restaurant_category": conditions.get("restaurant_category"),
+            "menu_type": conditions.get("menu_type"),
+            "price_level": conditions.get("price_level"),
+        },
     )
 
 
@@ -591,23 +629,11 @@ def chat(
     conversation_id: UUID = Depends(
         require_own_conversation
     ),
+    current_user: CurrentUser = Depends(get_current_user),
 ):
     """
-    사용자의 음식 관련 질문을 저장하고
-    Gemini 음식 추천 응답을 스트리밍한다.
+    사용자 질문을 저장하고 DB 식당 한 곳을 추천한다.
     """
-
-    # -----------------------------------------------------
-    # 기존 대화
-    # -----------------------------------------------------
-
-    history = _build_history(
-        conversation_id
-    )
-
-    # -----------------------------------------------------
-    # 사용자 메시지 DB 저장
-    # -----------------------------------------------------
 
     create_message(
         conversation_id,
@@ -617,26 +643,13 @@ def chat(
         ),
     )
 
-    # -----------------------------------------------------
-    # Gemini에게 전달할 전체 대화
-    # -----------------------------------------------------
-
-    contents = history + [
-        {
-            "role": "user",
-            "parts": [
-                {
-                    "text": payload.content
-                }
-            ],
-        }
-    ]
-
-    # -----------------------------------------------------
-    # Gemini 스트리밍 응답
-    # -----------------------------------------------------
-
-    return _stream_answer(
+    return _stream_recommendation(
         conversation_id,
-        contents,
+        current_user.id,
+        payload.content,
+        {
+            "restaurant_category": payload.restaurant_category,
+            "menu_type": payload.menu_type,
+            "price_level": payload.price_level,
+        },
     )
