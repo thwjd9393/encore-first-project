@@ -1,0 +1,44 @@
+{
+  "name": "옛날황소곱창",
+  "place_id": "1729094190",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTRfODQg/MDAxNzg2Njc3NjgwMjYw.BolrjdHiMvlPEcqgORKJr_Si95f1JW0M6XtPYbwah-Ig.xVFrSn1suI0aK23ZkqEm7XMlnMI3BJu1ChUEPNg9l_Yg.JPEG/SE-005268cd-6eff-46e6-96ab-cbb4a9b30d8f.jpg?type=w773"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTJfMjgy/MDAxNzg2NTM2MDE1ODEy.QMbvOXa3qSUtHfrfGsDusrApC_wOi8IuFDS7srgV1Rog.0BRtMBWI9t-zLMqEmYq9RzkYZAP8Owr3KAHrC4eX3rEg.PNG/image.png?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTVfMzIg/MDAxNzg2Nzk5NzI4NzM2.MTL9m0if_fVceHNVsHGX6VYxwkIkgpBJx9HuJ3Ulfu8g.25LESMbeJvNgzFZzgxIJxspdbJulNS8pLHg8R1fXueYg.JPEG/900_20260814_191508.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTZfMjgw/MDAxNzg2ODY4MDkyNzI4.VPxSOV7pzGjzOKnY1sFD1LWwNbnTdEpWTTIlCOQuhOkg.KhSTGhV288rwrw5GOlngNTbbBypn3ZGK2ghxoFPfMZ4g.JPEG/IMG＿5983.jpg?type=w466"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTVfNCAg/MDAxNzg2Nzk5NzMwMjUz.AzYrvuWGsGqQQP-QLwBoLRbVOYAB2E08N_xTO8ry9yAg.KaLe1eljxDxgHoyozaXnFnnfBUvqQ-97jyADhBvXIfMg.JPEG/900_20260814_191426.jpg?type=w386"
+    }
+  ]
+}

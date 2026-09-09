@@ -1,0 +1,44 @@
+{
+  "name": "뭉텅 신대방삼거리역점",
+  "place_id": "417313383",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/0D4311DB44A64E5D8EF797323800D56C"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/D8398085EE6D47B9B64B0473B45B0423"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTBfMjI4/MDAxNzg2MzQ0Mzg4ODEy.gThyFJD5_bmMVnr37IjWgZGryAww5cCWR378FqbYXKQg.eZfft98eBwn_wRTRVGQuKtR-cOuMcBZhbLr-kbnge7kg.JPEG/900_20260809_153808.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTBfMTQ5/MDAxNzg2MzQ0MzkwNzcw.FlUEeovXqplsQEAx9damiWpcfLdtMIbixWOL_WQ76YQg.p9mIzZBRI-vtla5YiK9Pko8FAss4XtZR1jGVTUzjv2Ug.JPEG/900_20260809_153737.jpg?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MDZfMjUg/MDAxNzg2MDA2MTQ3OTAy.w2vj_qfvDEChbH8VmGXSHDpJKj_fs-SfcAVMPU0SLj0g.ckqeqKF3uTD7S5-x2Zp47qGTIVOIdJEeS_vQ5s15NF0g.JPEG/900_20260805_185137.jpg?type=w773"
+    }
+  ]
+}

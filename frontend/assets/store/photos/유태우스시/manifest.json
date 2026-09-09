@@ -1,0 +1,44 @@
+{
+  "name": "유태우스시",
+  "place_id": "2027335609",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/30fe0a899d3857b7ce5e44368c500a4b03f68c33?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/274aacb1e1f18ebb6c9b7cde13e2fd40e8498acd?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MjlfNTMg/MDAxNzgyNzI1NDY4NjI0._9KS7MVC4D7zHem64bDnsaF0s3eud_P3w5mPKjYgZAIg.Ndizo3Wo6VboLhCUwOFw1y9whlw-h63obFwGgMoqN7kg.JPEG/IMG＿6725.JPG?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MTBfMjc4/MDAxNzgzNjgzMDA3NjEz.tnB9Cy5rZBs-L3szJIBWaNK23-u7EClJsmuNLcNgJgAg.HW9JO3YVmCrXdvKBz1_NwI2mAa4XN4g7RmyYdbUa7RIg.JPEG/output＿1793980641.jpg?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MjlfMjE4/MDAxNzgyNzI1NDY4MTky.i0CvHuPfVn0Nfa_sPfDIA_84PwwgZelAN_YlDdIUVbMg.difLhf80fObAqRxlvA1UbgiBU9c3Pj40v-l5e5r-6bIg.JPEG/IMG＿6711.JPG?type=w773"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "만두의정석",
+  "place_id": "2014833165",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/fe745ef5ae5080736eaebc8ec4bf8260e41117e9?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjAzMTNfODAg/MDAxNzczMzc5NjY1NDAy.wbEvCTGIbsPSQ_7rSAgBCHYA6tvzqMM3e9eQHEc1qOMg.u2AHJwFhXEnKtqXEm5GxQKxC15umLOAe65n6LFFlUzMg.PNG/KB마음가게_이사를_가도_다시_찾게_되는_맛집_'만두의정석'_1-12_screenshot.png?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNDEwMTRfMTY3/MDAxNzI4OTAwNDgzMDAw.87kuv4y_pJXAKj3bJzWhYZjHKrRq51N6DAeKgX44KqMg.GWsD_46WNNJN_ppmpBmEt2bAErBebiddzPoRimQxWG8g.JPEG/20241014＿141859.jpg?type=w466"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjAxMTNfMTM5/MDAxNzY4MjM0MjY5NjQ2.A5rZSkc71x9QyO9fkEKI8QYCk83IJTYzE5EtRQAId7gg.q9JgHli09c2TE-1j0yB7bZwp28L2SMS_VBH5-gNbyTgg.JPEG/20260106_143334.jpg?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjAxMTZfMTkw/MDAxNzY4NTY5ODc1MTk0.-cUvkm9ziLjelCyjAEE_eH7fOh7ncdIKxVf4IUDF-pcg.fPUl9AjwkCPKAgqASwyF3E_dVdV4LaIMtu3pFu_bPUog.JPEG/output＿3306259798.jpg?type=w773"
+    }
+  ]
+}

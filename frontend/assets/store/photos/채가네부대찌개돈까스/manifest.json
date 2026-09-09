@@ -1,0 +1,44 @@
+{
+  "name": "채가네부대찌개돈까스",
+  "place_id": "637527408",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/309adbee2671a77b6627fdebc106c66f23bdcb31?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/2b6954166f739d742a0bab460f51eb844eaa1c45?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNTA5MDJfMTYx/MDAxNzU2NzgwMTc3MDEw.RnpjfS7I5oZ4w71sxkrcDtums5wmTC9P2XsF8Zc-4eMg.vlxfJwoUNFQXhUB3mAUhTBTpdhUOV23yUJynVvNG_xgg.JPEG/SE-AF7BF0FC-71F6-4001-94D6-91D95CC3EB5B.jpg?type=w466"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNTA4MDFfMTU0/MDAxNzU0MDM5MDExMjYx._uil5qAMLS7hWQGrU1BRiF44kIB2BT-MRv2xQq34QGcg.BNTlQZ6dvx1AsjcUPVoFgJAuGyDTjZINjVPIfjIJAZMg.JPEG/SE-0750924c-fa57-49ba-874e-28da25756506.jpg?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjAyMDJfMjUy/MDAxNzcwMDA3NDkwODc5.MBeXaMLe-Y7fTmFcZVLIThtqOZjAonbm5pNwMG_FZhsg.E99nQ0jcf8LBk3jyeQ128nzwPmniAMRPPDp0G7nGP8Ag.JPEG/KakaoTalk_20251229_103204992.jpg?type=w773"
+    }
+  ]
+}

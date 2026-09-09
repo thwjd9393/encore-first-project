@@ -1,0 +1,44 @@
+{
+  "name": "미분당 신대방삼거리점",
+  "place_id": "604238823",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/f4e3e2446b5011f5cea6cacb0a563f085eeb4d38?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/68760767aa823f6d5c53920180e021175988d1c3?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNTExMjNfNTUg/MDAxNzYzOTA4MTE4OTg4.qT_ec3lStHXhB2mNxS9KclDi0eaBnVu6RT5i1DH6a-wg.lvU8UiBn_p-XPvD2Uz2rfIYXn-QmRj5RjAUuZzfjSyQg.JPEG/900＿20251119＿122548.jpg?type=w966"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MjhfOCAg/MDAxNzgyNjUwMzkyNDg2.8-qAS7rhCv3BV9j94sS1vJgwqBOJrv9Nwcx4AXFsShIg.hx2qVNIhyqU1ge5x98g0jTQ9N3CeNlArlt42oZosN3Ag.JPEG/900_20260623_190100.jpg?type=w466"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjZfMjUw/MDAxNzg1MDczMDgxMTY1.51fiOrUFHTXB-FFEA3m8NkZIeVR7XLVMOgb148zzOAAg.7fXHtO-vkG446ETg-V0tNFSf_gfxPmAx0wbW4YlMpfUg.JPEG/SE-c962bf2c-99fe-4822-8a03-1d4410b42197.jpg?type=w773"
+    }
+  ]
+}

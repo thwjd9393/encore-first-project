@@ -1,0 +1,44 @@
+{
+  "name": "서일순대국 별관",
+  "place_id": "27454501",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/2e2d4196eddd44c6ebcb02ba713d85e5a291f431782337dab717d674f000b71a"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/87b87d672b44272ddbf3c053c30455569f3e444f?original"
+    },
+    {
+      "file": "0003.png",
+      "category": "메뉴판",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/157463C5D8FB4F169E22BF1DCADD1290"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://blog.kakaocdn.net/dn/cVMZ7e/btsOhgnxz0s/3VVndO56uJnLxB5k7PDlok/img.jpg"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/8af7b5fb8ffbbd186befad7ff80b8136833d55f2?original"
+    }
+  ]
+}

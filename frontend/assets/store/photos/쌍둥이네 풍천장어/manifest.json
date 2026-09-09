@@ -1,0 +1,44 @@
+{
+  "name": "쌍둥이네 풍천장어",
+  "place_id": "530107088",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "http://t1.kakaocdn.net/mystore/5F33621D69CD4B7E820701732077FD2C"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "http://t1.kakaocdn.net/mystore/55FDF871FBBF43899B452CC7EB115816"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "http://t1.kakaocdn.net/mystore/7EDA6F22F22E4E05A99B76F32F94C3A2"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "http://t1.kakaocdn.net/mystore/F6062AD0D35546619E0DDC08A4D024CB"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "http://t1.kakaocdn.net/mystore/1871A4BC2A394FFEBD04A7D6EB234112"
+    }
+  ]
+}

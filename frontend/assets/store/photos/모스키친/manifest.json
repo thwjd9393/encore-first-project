@@ -1,0 +1,44 @@
+{
+  "name": "모스키친",
+  "place_id": "1448531833",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/6e25b7520cb2d1bd666007eabc41b70462b998b7?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/aa24cf54e9b9d960a25083d277c256ee7ab2c5a6?original"
+    },
+    {
+      "file": "0003.png",
+      "category": "메뉴판",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/9d1a71cea1cecb897a55ca607002cd8241e1778e?original"
+    },
+    {
+      "file": "0004.png",
+      "category": "분위기",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/da26f92b537fe59ee5f6f73d951ab8830f29f041?original"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/2cd4a94f5db72634a06837b3dd5a4486ec082e7f?original"
+    }
+  ]
+}

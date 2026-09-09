@@ -1,5 +1,40 @@
-import streamlit as st
 from pathlib import Path
+
+import streamlit as st
+
+from src.common.api_client import post_json
+
+
+def load_signup_terms():
+    terms_path = Path(__file__).resolve().parents[3] / "약관.md"
+    terms_text = "이용약관 파일을 찾을 수 없습니다."
+    privacy_text = "개인정보 수집 및 이용 동의 파일을 찾을 수 없습니다."
+    if not terms_path.is_file():
+        return terms_text, privacy_text
+
+    current = None
+    terms_lines = []
+    privacy_lines = []
+    for line in terms_path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("## 이용약관"):
+            current = "terms"
+            continue
+        if line.startswith("## 개인정보"):
+            current = "privacy"
+            continue
+        if line.startswith("## "):
+            current = None
+            continue
+        if current == "terms":
+            terms_lines.append(line)
+        elif current == "privacy":
+            privacy_lines.append(line)
+
+    if terms_lines:
+        terms_text = "\n".join(terms_lines).strip()
+    if privacy_lines:
+        privacy_text = "\n".join(privacy_lines).strip()
+    return terms_text, privacy_text
 
 
 def load_signup_css():
@@ -37,7 +72,6 @@ def render_signup():
         unsafe_allow_html=True,
     )
 
-
     # ==========================================
     # 2. 회원가입 안내 문구
     # ==========================================
@@ -59,93 +93,60 @@ def render_signup():
         unsafe_allow_html=True,
     )
 
+    # MVP 인증은 이메일 + 비밀번호다. 문자열 로그인 아이디는 받지 않는다.
+    # 약관 체크 때 화면이 다시 그려지면 비밀번호 값이 비워지므로 form으로 한 번에 제출한다.
+    terms_text, privacy_text = load_signup_terms()
 
-    # ==========================================
-    # 3. 회원 정보 입력
-    # ==========================================
+    with st.form("signup_form", clear_on_submit=False):
+        email = st.text_input(
+            "이메일",
+            placeholder="이메일을 입력하세요",
+            key="signup_email",
+        )
 
-    login_id = st.text_input(
-        "아이디",
-        placeholder="아이디를 입력하세요",
-        label_visibility="collapsed",
-        key="signup_login_id",
-    )
+        password = st.text_input(
+            "비밀번호",
+            type="password",
+            placeholder="비밀번호를 입력하세요",
+            key="signup_password",
+        )
 
-    email = st.text_input(
-        "이메일",
-        placeholder="이메일을 입력하세요",
-        label_visibility="collapsed",
-        key="signup_email",
-    )
+        password_confirm = st.text_input(
+            "비밀번호 확인",
+            type="password",
+            placeholder="비밀번호를 다시 입력하세요",
+            key="signup_password_confirm",
+        )
 
-    password = st.text_input(
-        "비밀번호",
-        type="password",
-        placeholder="비밀번호를 입력하세요",
-        label_visibility="collapsed",
-        key="signup_password",
-    )
+        username = st.text_input(
+            "닉네임",
+            placeholder="닉네임을 입력하세요",
+            key="signup_username",
+        )
 
-    password_confirm = st.text_input(
-        "비밀번호 확인",
-        type="password",
-        placeholder="비밀번호를 다시 입력하세요",
-        label_visibility="collapsed",
-        key="signup_password_confirm",
-    )
+        with st.expander("이용약관 보기"):
+            st.markdown(terms_text)
 
-    username = st.text_input(
-        "닉네임",
-        placeholder="닉네임을 입력하세요",
-        label_visibility="collapsed",
-        key="signup_username",
-    )
+        terms_agreed = st.checkbox(
+            "이용약관에 동의합니다.",
+            key="signup_terms",
+        )
 
+        with st.expander("개인정보 수집 및 이용 동의 보기"):
+            st.markdown(privacy_text)
 
-    # ==========================================
-    # 4. 약관 동의
-    # ==========================================
+        privacy_agreed = st.checkbox(
+            "개인정보 수집 및 이용에 동의합니다.",
+            key="signup_privacy",
+        )
 
-    terms_agreed = st.checkbox(
-        "이용약관에 동의합니다.",
-        key="signup_terms",
-    )
+        submitted = st.form_submit_button(
+            "회원가입",
+            use_container_width=True,
+        )
 
-    privacy_agreed = st.checkbox(
-        "개인정보 수집 및 이용에 동의합니다.",
-        key="signup_privacy",
-    )
-
-
-    # ==========================================
-    # 5. 사용자 구분
-    # ==========================================
-
-    user_type = 2
-
-
-    # ==========================================
-    # 6. 회원가입 버튼
-    # ==========================================
-
-    if st.button(
-        "회원가입",
-        use_container_width=True,
-        key="signup_button",
-    ):
-
-        login_id = login_id.strip()
-
-        if not login_id:
-            st.error("아이디를 입력해주세요.")
-            return
-
-        if len(login_id) < 4 or len(login_id) > 20:
-            st.error("아이디는 4~20자로 입력해주세요.")
-            return
-
-
-        email = email.strip()
+    if submitted:
+        email = (email or "").strip()
 
         if not email:
             st.error("이메일을 입력해주세요.")
@@ -155,8 +156,11 @@ def render_signup():
             st.error("올바른 이메일 형식으로 입력해주세요.")
             return
 
+        # --------------------------------------
+        # 비밀번호 검증
+        # --------------------------------------
 
-        if not password:
+        if not (password or "").strip():
             st.error("비밀번호를 입력해주세요.")
             return
 
@@ -164,6 +168,9 @@ def render_signup():
             st.error("비밀번호는 8자 이상 입력해주세요.")
             return
 
+        if len(password) > 128:
+            st.error("비밀번호는 128자 이하로 입력해주세요.")
+            return
 
         if not password_confirm:
             st.error("비밀번호 확인을 입력해주세요.")
@@ -173,17 +180,24 @@ def render_signup():
             st.error("비밀번호가 서로 다릅니다.")
             return
 
+        # --------------------------------------
+        # 닉네임 검증
+        # 백엔드 SignUpRequest 기준: 1~45자
+        # --------------------------------------
 
-        username = username.strip()
+        username = (username or "").strip()
 
         if not username:
             st.error("닉네임을 입력해주세요.")
             return
 
-        if len(username) < 2 or len(username) > 30:
-            st.error("닉네임은 2~30자로 입력해주세요.")
+        if len(username) > 45:
+            st.error("닉네임은 45자 이하로 입력해주세요.")
             return
 
+        # --------------------------------------
+        # 약관 동의 검증
+        # --------------------------------------
 
         if not terms_agreed:
             st.error("이용약관에 동의해주세요.")
@@ -195,30 +209,56 @@ def render_signup():
             )
             return
 
-
         # ======================================
-        # FastAPI 연결 예정
+        # 6. FastAPI 회원가입 요청
         # ======================================
 
-        # result = api(
-        #     "POST",
-        #     "/auth/signup",
-        #     json={
-        #         "login_id": login_id,
-        #         "email": email,
-        #         "password": password,
-        #         "username": username,
-        #         "user_type": user_type,
-        #     },
-        # )
+        with st.spinner("가입을 처리하는 중..."):
+            result = post_json(
+                "/auth/signups",
+                json_body={
+                    "email": email,
+                    "password": password,
+                    "nickname": username,
+                    "terms_agreed": terms_agreed,
+                    "privacy_agreed": privacy_agreed,
+                },
+            )
 
-        st.success(
-            "회원가입 입력값 확인이 완료되었습니다."
+        if result["ok"]:
+            st.session_state.page = "login"
+            st.session_state.login_notice = (
+                "회원가입이 완료되었습니다. 로그인해주세요."
+            )
+            st.rerun()
+
+        error = result.get("error") or {}
+        status_code = result.get("status_code")
+        message = error.get("message") or "회원가입 처리 중 오류가 발생했습니다."
+
+        if status_code == 409:
+            st.error(message)
+            return
+
+        if status_code == 422:
+            st.error("입력값을 다시 확인해주세요.")
+            return
+
+        if status_code == 429:
+            st.error(message)
+            return
+
+        if status_code == 0:
+            st.error(message)
+            return
+
+        st.error(
+            "회원가입 처리 중 오류가 발생했습니다. "
+            "잠시 후 다시 시도해주세요."
         )
 
-
     # ==========================================
-    # 7. 로그인 화면 이동
+    # 8. 로그인 화면 이동
     # ==========================================
 
     st.markdown(

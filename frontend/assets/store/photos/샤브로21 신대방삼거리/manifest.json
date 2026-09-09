@@ -1,0 +1,44 @@
+{
+  "name": "샤브로21 신대방삼거리",
+  "place_id": "47066124",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNTAzMThfMTg4/MDAxNzQyMjUwNjg2OTY3.3-AvCrspQstiic7roHeJ6IQmoq6RPN7cs4Txt4lGTTog.GWCgqDZ5Rzx1NdMPRGF4R7N03YiHWrw9VBnD6oz1xqgg.JPEG/IMG_9700.jpg?type=w773"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MTFfMjk4/MDAxNzgzNzc2NTQxMTAw.nO64D9PEqDIRe0QVDGZC8sPip3r6BixmdfR8wfE0JKwg.jmMjUVRzSMfXKfWSrVzJ0SDP0OSHWQ7AxUNWEYZDj0Ig.JPEG/900_20260711_123447.jpg?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MTFfMTcx/MDAxNzgzNzc2MTA2NTMw.UtWcm9ywerX2LGKnVrQFLLc9ZtQL2KVzA5l0ZJfOPOsg.Csa5oougdO57E_ENRyDT59S_2v6mqbqvWSzMbUl2308g.JPEG/900_1783776105603.jpg?type=w966"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNTAzMTJfMTE5/MDAxNzQxNzU2NjU4MjY5.4J_lmDQqwUCYNM_hws5sz8y6-YtGPfyfAXiPmWw75uIg.VcjtTewwO_LYC6f-qPrTZWc3bhFAne60M3q2Gi8_BWAg.JPEG/SE-92D5E25E-9F13-4B45-B628-52FE220113CE.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MDFfMTUg/MDAxNzgwMzA2NTIxNzU2.Z__17r0Ge6-0PZjyCqOh8zFYGja6WCkekz9cZ9j3T9Ag.dj5F-tkGSbjJzozFQSlK6oe8JtClFcsCewIMmwY7ZJ0g.JPEG/20260528_114448.jpg?type=w773"
+    }
+  ]
+}

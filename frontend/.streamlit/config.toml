@@ -1,0 +1,13 @@
+[theme]
+base = "light"
+primaryColor = "#FF7A00"
+backgroundColor = "#FFF9F4"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#333333"
+borderColor = "#DDDDDD"
+linkColor = "#FF7A00"
+redColor = "#C62828"
+orangeColor = "#E08A00"
+greenColor = "#2E7D32"
+blueColor = "#2F6FED"
+grayColor = "#666666"

@@ -1,0 +1,44 @@
+{
+  "name": "프레시랩 동작점",
+  "place_id": "1335029061",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjAyMjVfNDUg/MDAxNzcxOTg0MzgwNzQ3.SJC6R5VEPcA7tUiztTvL_TtCwjwOTOZJMzTxwCuSjZwg.C7sWjLcf4LHouBGp12jxhYP1CrenyqQiBc_cLElGiOQg.JPEG/900＿1771984378836.jpg?type=w773"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNDExMDNfMTc1/MDAxNzMwNjQ0NTcxNzIz.KPuaOx1tToln_Wp1rBkr8bTmUWOAsujgkdBnf-rR620g.Vp5Pm7c81btmsDIdZxwT-wGZggrjcOxIY4zPpF7IlH8g.JPEG/KakaoTalk_20241102_221809315_10.jpg?type=w773"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjAyMjVfMTQz/MDAxNzcxOTg0Mzc5Nzk4.E4lU1zJFbD3G9Yy48ydYIL_ybnlN4zCoSjCuohgYaq0g.xrFttuCQlWvj-W0Gkn2eRnC891DhCL-yL_UedKn_Uw8g.JPEG/900＿1771984378521.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjAyMjVfMTM3/MDAxNzcxOTg0Mzc5ODYx.NZh4_AJehDTfxlp1QkTzQyMaAW_Dn4R5X4TJB9Hdcl4g.HXfqn7wQBhcEh2ycNFEtuzd_tMrJPFG_CKc40LnIa6Ug.JPEG/900＿1771984378208.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNDExMDNfNDcg/MDAxNzMwNjQ0Njk2MDUz.c6Xd6JHlRKm6Yd7u3zmOB2Xb2-1tqtvVd158MMJbGMMg.E7SK5JYE1zD2tC0Yz6bVabTfmZciHiBr69F5zH4TbBUg.JPEG/KakaoTalk_20241102_221809315_12.jpg?type=w773"
+    }
+  ]
+}

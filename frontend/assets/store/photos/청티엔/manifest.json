@@ -1,0 +1,44 @@
+{
+  "name": "청티엔",
+  "place_id": "16092272",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/ebd954b2a314fae719c0bc301bccd33c26d82287?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/5607f33e94b5717cd3977e115fb1e2d3217606c2?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/ACC83E5DD4EC43B9B4997AA3411DF93C"
+    },
+    {
+      "file": "0004.png",
+      "category": "분위기",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/3e7e16efe18e244138aa3116c37109483dc36518?original"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/ee749a109991ca27d96e904380a2318c30ac1d2a?original"
+    }
+  ]
+}

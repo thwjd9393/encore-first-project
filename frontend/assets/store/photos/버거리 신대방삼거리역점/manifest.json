@@ -1,0 +1,44 @@
+{
+  "name": "버거리 신대방삼거리역점",
+  "place_id": "1889659636",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/1aab3b77b87a1edcf90b0fc077cd895d08f4f320?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/c6ec2a466cbffb72af8b1042e17bf127f6624897?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjNfMjAx/MDAxNzg0NzY5NDk3OTE3.2z0wDnJWk0MD9UfGOE-dfBUku0AFLcvHu7JwmyV9z3og.i5jZjGm3JNO8f8Cifxi45NQGXBAlGn7uidEIijnXYZQg.JPEG/SE-cbb8781f-cd94-463a-8e8b-7e0ac3a328ac.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjNfMjAy/MDAxNzg0NzY5NDkxNDgz.WkXop8fdRr5foknDH1m0HrOS8OHTUFlOxsWt5MhBgscg.gNutdgQxmjY5bx5UMsFieDSZGPq-HsOBQLHPIsKLL2og.JPEG/SE-67955632-9489-44e8-8f47-5d6ae27fdafe.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjNfOCAg/MDAxNzg0NzY5NDkzNDcz.mIrNmHOzgWAS0i3sBZmSah-xm432iIxhO_5RZGVPGIcg.k4R7unttTX9PWSxf9DPOhM5do-rz6ridNBYZsh_Y8YYg.JPEG/SE-817abb60-66e2-4be3-b774-98e313d0f468.jpg?type=w773"
+    }
+  ]
+}

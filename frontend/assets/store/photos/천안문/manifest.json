@@ -1,0 +1,44 @@
+{
+  "name": "천안문",
+  "place_id": "22578496",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/c9bb2bda4bc59e48df4145db0bd8ea1910cb83e7?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/48fb187a6e8514474c10049383c99146510c52c5?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjZfMjcz/MDAxNzg1MDUxMzUzNTcw.B4G2vOE-kLkD8aX02rjZbx7d-U3WFrfQYg3PdT1_u-Ig.5JIyn_zp6O_O4YAxClnv_q5JnxbtxfTwV15jE4qAkRMg.JPEG/IMG＿8887.jpg?type=w386"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjZfMjQ3/MDAxNzg1MDUxMzcyOTQ4.shaiblvAEQQbdTeHCuxhxGIs9lQ0gItwdaCCiduGgd0g.ZXfRg9ets7tsywCHDTNFLXplRFuSE1IwG97ftFM12B8g.JPEG/IMG＿8888.jpg?type=w773"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/a78b060f9844c89ee0dd4ccf1f316658819e585a?original"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "오다 신대방삼거리점",
+  "place_id": "1180348660",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MDFfMTIg/MDAxNzc3NjA1MzIyNjQ1.vOCz8STCoIPnibITrIHoDncG8MC_vJgfI_0sorzA-w4g.qbGzj-qYDSCwzflK6UBHAtJdz5amcmH9itNurXGj7t0g.JPEG/output＿3887713014.jpg?type=w966"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA0MTVfMjQg/MDAxNzc2MjE3MDk5NjM5.Lg0axKlRzfycqrzL2XRVU6XFTa5crrsv08MlIg9Ul2Qg._gUTxp5x1ciXjYxGMOKm3fzUfzKaXtLu-ecEaYxdo0Yg.JPEG/KakaoTalk_20260414_115912922.jpg?type=w773"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MDJfNDQg/MDAxNzc3NzE4MDUwMTU1.F3Kc0BdAWdZCAJvH_Niuuk7NxcA28i3tU4y7wtOAZ0Qg.kHZ55_M6FMDm8sS2jxZ69KoqaKJcC0MX5M3my0n-40Ag.JPEG/KakaoTalk_Photo_2026-05-02-18-52-06_008.jpeg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MDJfMTc1/MDAxNzc3NzE3ODc3ODE4.o8GUJnwS1zjM3QkIv-bNlocdOZXIhG5aavX6zyDrTzgg.l-qdHf6FcTaAW7XPQUUkUjsoiA3lMS7YFQxHyV5ffJ0g.JPEG/KakaoTalk_Photo_2026-05-02-18-52-05_002.jpeg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTlfMjMw/MDAxNzg3MDk1NDUxMzA4.CkhBD_-wtoEMd3IQVWExjrOqSH0QmRL31pSdJjm4S2Yg.ddaidgUzHNQMYAcPULsdYAl3N_JPk_m2Lolu0RyGZ60g.JPEG/20260810_221219.jpg?type=w466"
+    }
+  ]
+}

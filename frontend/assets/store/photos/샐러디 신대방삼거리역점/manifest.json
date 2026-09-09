@@ -1,0 +1,44 @@
+{
+  "name": "샐러디 신대방삼거리역점",
+  "place_id": "1105851659",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjAzMDNfMjkx/MDAxNzcyNTE1MTI3Njgy.Wb-uIXD_og8k3alj7SQeZ8OgY6FpH2joD_nFOE0ys0og._We2AKl_-hTlrGIQSCtCPjEwIQjNP6Kgd39firNKvKYg.JPEG/IMG_9870.jpg?type=w966"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjAyMjZfNjMg/MDAxNzcyMDMyODAxNjIw.Hs5R3a9wxZz2-Fryule6o01yYXTUJ-uWT6l5vAJQT5og.ti-VaH-Hmir57M39_FHM0X-tZ3SAdKgrpssRDnnqes4g.JPEG/output＿710745131.jpg?type=w773"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNDA2MjJfMTAx/MDAxNzE5MDQ1MzMyNjk1.WIfwKRPHWS0vn9jKmcYpmQpyXlmz9C8_yImqZMzHLncg.0e6mqTDrxTkjjKCZFm9Aqd8gLqrS3JE3WS35yIYo3LQg.JPEG/샐러디8.jpg?type=w580"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MjVfMjE1/MDAxNzc5NzAzMzMxNTc0.WbXayjZ_EbpYaPjimxztS-5oMbP0UZwEp30UoosciP0g.1dJonNiw-FfI6T_FHpVHnm2_xlKqB4CEGg1VLrbVAywg.JPEG/900_20260523_184154.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjAyMTlfMjI4/MDAxNzcxNDgxOTU5Mjkx.adpeRdQS00ANPwj9ddiivVLldmLs7LFILLvRjSYxzAUg.JDCw-ct0QGloBH8g1d74YZVrvSbGwWWrKAbU4GAWF9Yg.JPEG/900＿1771481900159.jpg?type=w773"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "카츠 디나인 신대방삼거리 본점",
+  "place_id": "1548241074",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/c5f6e663ce7860b9beae49854817659d5f4a5cba?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/8ae687934283158a3bcb19bcb7599feffe798b1f?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MjlfOTgg/MDAxNzgwMDQzODY1NDY2.jq2_BHF4vlvVS55knNXXAYxwn5DJQS8ABiCGDRvVA1wg.p1Xru3mzgBvr_6Rf1hrvIBrkfOoDHOelTnhQO_Ej9y8g.JPEG/SE-6d677991-36e3-11f1-a63b-1938b4b2d179.jpg?type=w773"
+    },
+    {
+      "file": "0004.png",
+      "category": "분위기",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/f3b2b955bf23560f7c229635c358029469816ba5?original"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/523ca2a5bbce5df248dce1eb55ad796c79e0475b?original"
+    }
+  ]
+}

@@ -1,346 +1,919 @@
 @import url(
-    'https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'
+  'https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'
 );
 
 
-/* =====================================================
-   Streamlit 기본 설정
-===================================================== */
+/* =========================================================
+   PlayEAT Login Page
+   ========================================================= */
+
+:root {
+  --color-primary: #ff7900;
+  --color-primary-hover: #ff922e;
+  --color-secondary: #ffb368;
+
+  --color-background: #fff9f4;
+  --color-surface: #ffffff;
+
+  --color-text: #333333;
+  --color-muted: #8a8a8a;
+
+  --color-border: #d9dee5;
+
+  --color-danger: #c62828;
+  --color-success: #2e7d32;
+  --color-warning: #e08a00;
+  --color-info: #2f6fed;
+
+  --font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+
+  --layout-max-width: 1380px;
+  --login-content-width: 1220px;
+
+  --page-padding-x: 40px;
+  --page-padding-top: 28px;
+  --page-padding-bottom: 40px;
+
+  --navbar-height: 96px;
+
+  --input-height: 54px;
+  --button-height: 56px;
+
+  --radius-control: 10px;
+  --radius-card: 22px;
+  --radius-navbar: 22px;
+
+  --shadow-navbar:
+    0 6px 24px rgba(90, 70, 50, 0.06);
+}
+
+
+/* =========================================================
+   Global
+   ========================================================= */
 
 html,
 body,
-[class*="css"],
-.stApp {
-    font-family: 'Pretendard', sans-serif;
+.stApp,
+.stApp input,
+.stApp button,
+.stApp textarea {
+  font-family: var(--font-family);
+}
+
+
+html,
+body {
+  background: var(--color-background);
 }
 
 
 .stApp {
-    background-color: #FFF9F4;
+  background:
+    linear-gradient(
+      180deg,
+      #fffaf6 0%,
+      #fff9f4 100%
+    );
+
+  color: var(--color-text);
+  font-size: 16px;
+  line-height: 1.5;
 }
 
+
+/* Streamlit 기본 UI 숨김 */
 
 header[data-testid="stHeader"] {
-    height: 0;
-    visibility: hidden;
+  height: 0;
+  visibility: hidden;
 }
 
-
-#MainMenu {
-    visibility: hidden;
-}
-
-
+#MainMenu,
 footer {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 
-div[data-testid="stToolbar"] {
-    display: none;
-}
-
-
-/* =====================================================
-   전체 페이지
-===================================================== */
+/* =========================================================
+   Main Layout
+   ========================================================= */
 
 .block-container {
-    max-width: 1320px;
+  box-sizing: border-box;
 
-    padding-top: 28px;
-    padding-left: 44px;
-    padding-right: 44px;
-    padding-bottom: 35px;
+  width: calc(
+    100% - var(--page-padding-x) * 2
+  );
+
+  max-width: var(--layout-max-width);
+
+  margin: 0 auto;
+
+  padding:
+    var(--page-padding-top)
+    0
+    var(--page-padding-bottom);
 }
 
 
-/* =====================================================
+/* =========================================================
    Navbar
-===================================================== */
+   ========================================================= */
 
 .navbar {
-    width: 100%;
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    min-height: 90px;
+  width: 100%;
+  min-height: var(--navbar-height);
 
-    background-color: #FFFFFF;
+  padding: 20px 28px;
 
-    padding: 16px 26px;
+  margin-bottom: 42px;
 
-    border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  border-radius: var(--radius-navbar);
 
-    margin-bottom: 32px;
+  box-shadow: var(--shadow-navbar);
 
-    box-shadow:
-        0 5px 22px rgba(51, 51, 51, 0.05);
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
 }
 
 
 .navbar-brand-group {
-    display: flex;
+  display: flex;
+  flex-direction: column;
 
-    flex-direction: column;
-
-    justify-content: center;
+  min-width: 0;
 }
 
 
 .navbar-logo {
-    color: #FF7A00;
+  color: var(--color-primary);
 
-    font-size: 23px;
-    font-weight: 800;
+  font-size: 27px;
+  font-weight: 800;
 
-    line-height: 1.3;
+  letter-spacing: -0.5px;
 
-    white-space: nowrap;
+  line-height: 1.3;
 }
 
 
 .navbar-slogan {
-    margin-top: 2px;
+  margin-top: 6px;
 
-    color: #333333;
+  color: #969696;
 
-    font-size: 12px;
-
-    line-height: 1.5;
-
-    opacity: 0.60;
-
-    white-space: nowrap;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 
 .navbar-slogan-highlight {
-    color: #FF7A00;
+  color: var(--color-primary);
 
-    font-weight: 700;
-
-    opacity: 1;
+  font-weight: 700;
 }
 
 
 .navbar-text {
-    color: #333333;
+  color: #a1a1a1;
 
-    font-size: 12px;
+  font-size: 16px;
+  font-weight: 600;
 
-    opacity: 0.42;
-
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 
-/* =====================================================
-   로그인 제목
-===================================================== */
+/* =========================================================
+   Login main horizontal layout
+   ========================================================= */
+
+[data-testid="stHorizontalBlock"]:has(.login-main-title) {
+  width: 100%;
+
+  max-width: var(--login-content-width);
+
+  margin: 0 auto;
+
+  gap: 46px;
+}
+
+
+/* 왼쪽 로그인 영역 */
+
+[data-testid="stHorizontalBlock"]:has(.login-main-title)
+  > [data-testid="stColumn"]:first-child {
+
+  flex: 0 0 48%;
+
+  min-width: 0;
+}
+
+
+/* 오른쪽 이미지 영역 */
+
+[data-testid="stHorizontalBlock"]:has(.login-main-title)
+  > [data-testid="stColumn"]:last-child {
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   Login Title
+   ========================================================= */
 
 .login-main-title {
-    color: #333333;
+  margin-top: 8px;
+  margin-bottom: 10px;
 
-    font-size: 40px;
-    font-weight: 800;
+  color: var(--color-text);
 
-    line-height: 1.25;
+  font-size: 48px;
+  font-weight: 800;
 
-    letter-spacing: -1.2px;
+  line-height: 1.2;
 
-    margin-top: 38px;
+  letter-spacing: -1.8px;
 
-    white-space: nowrap;
+  word-break: keep-all;
 }
 
 
 .orange-text {
-    color: #FF7A00;
+  color: var(--color-primary);
 }
 
 
 .login-description {
-    color: #333333;
+  margin-top: 0;
+  margin-bottom: 30px;
 
-    opacity: 0.52;
+  color: #8e8e8e;
 
-    font-size: 14px;
+  font-size: 17px;
+  font-weight: 400;
 
-    line-height: 1.5;
-
-    margin-top: 14px;
-
-    margin-bottom: 30px;
+  line-height: 1.6;
 }
 
 
-/* =====================================================
-   입력창
-===================================================== */
+/* =========================================================
+   Inputs
+   ========================================================= */
+
+div[data-testid="stTextInput"] {
+  margin-bottom: 8px;
+}
+
+
+div[data-testid="stTextInput"] label {
+  margin-bottom: 8px;
+}
+
+
+div[data-testid="stTextInput"] label p {
+  color: var(--color-text);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+div[data-testid="stTextInput"]
+[data-baseweb="input"] {
+
+  box-sizing: border-box;
+
+  height: var(--input-height);
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-control);
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+div[data-testid="stTextInput"]
+[data-baseweb="base-input"] {
+
+  background: transparent;
+}
+
 
 div[data-testid="stTextInput"] input {
-    height: 52px;
+  box-sizing: border-box;
 
-    border-radius: 10px;
+  height: 100%;
 
-    border:
-        1px solid rgba(51, 51, 51, 0.13);
+  padding-left: 18px;
+  padding-right: 18px;
 
-    background-color: #FFFFFF;
+  background: transparent;
 
-    color: #333333;
+  color: var(--color-text);
 
-    font-size: 14px;
+  font-family: var(--font-family);
+
+  font-size: 16px;
+  font-weight: 400;
 }
 
 
-div[data-testid="stTextInput"] input:focus {
-    border-color: #FF7A00;
+div[data-testid="stTextInput"]
+input::placeholder {
 
-    box-shadow:
-        0 0 0 1px #FF7A00;
+  color: #a2a7af;
+
+  opacity: 1;
 }
 
 
-/* =====================================================
-   버튼
-===================================================== */
+div[data-testid="stTextInput"]
+[data-baseweb="input"]:focus-within {
 
-div[data-testid="stButton"] > button {
-    min-height: 50px;
+  border-color:
+    var(--color-primary);
 
-    border-radius: 10px;
+  box-shadow:
+    0 0 0 2px
+    rgba(255, 122, 0, 0.12);
 
-    font-size: 14px;
-
-    font-weight: 650;
+  outline: none;
 }
 
 
-div[data-testid="stButton"] > button[kind="primary"] {
-    background-color: #FF7A00;
+div[data-testid="stTextInput"] button {
+  min-width: 44px;
+  min-height: 44px;
 
-    color: #FFFFFF;
-
-    border: none;
+  color: #7f8790;
 }
 
 
-div[data-testid="stButton"] > button[kind="primary"]:hover {
-    background-color: #FFB368;
+/* =========================================================
+   Checkbox
+   ========================================================= */
 
-    color: #333333;
+div[data-testid="stCheckbox"] {
+  display: flex;
 
-    border: none;
+  align-items: center;
 }
 
-
-/* =====================================================
-   체크박스
-===================================================== */
 
 div[data-testid="stCheckbox"] label {
-    color: #333333;
+  min-height: 48px;
 
-    font-size: 13px;
+  display: flex;
+
+  align-items: center;
 }
 
 
-/* =====================================================
-   구분선
-===================================================== */
+div[data-testid="stCheckbox"] label p {
+  color: #555555;
 
-.divider {
-    display: flex;
-
-    align-items: center;
-
-    width: 100%;
-
-    color: rgba(51, 51, 51, 0.38);
-
-    font-size: 12px;
-
-    margin: 20px 0;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 
-.divider::before,
-.divider::after {
-    content: "";
-
-    flex: 1;
-
-    border-top:
-        1px solid rgba(51, 51, 51, 0.13);
+div[data-testid="stCheckbox"] input {
+  accent-color:
+    var(--color-primary);
 }
 
 
-.divider span {
-    padding: 0 14px;
+/* =========================================================
+   Buttons - common
+   ========================================================= */
+
+div[data-testid="stButton"]
+> button {
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  min-height:
+    var(--button-height);
+
+  padding:
+    12px
+    18px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-control);
+
+  background:
+    rgba(255, 255, 255, 0.94);
+
+  color:
+    var(--color-text);
+
+  font-family:
+    var(--font-family);
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.08s ease;
 }
 
 
-/* =====================================================
-   회원가입 안내
-===================================================== */
+div[data-testid="stButton"]
+> button p {
+
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+
+/* 일반 버튼 hover */
+
+div[data-testid="stButton"]
+> button:not(:disabled):hover {
+
+  border-color:
+    var(--color-primary);
+
+  color:
+    var(--color-primary);
+}
+
+
+/* =========================================================
+   Primary Login Button
+   ========================================================= */
+
+div[data-testid="stButton"]
+> button[kind="primary"] {
+
+  min-height: 58px;
+
+  margin-top: 6px;
+
+  border:
+    1px solid
+    var(--color-primary);
+
+  background:
+    var(--color-primary);
+
+  color:
+    white;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  box-shadow:
+    none;
+}
+
+
+div[data-testid="stButton"]
+> button[kind="primary"]:not(:disabled):hover {
+
+  background:
+    var(--color-primary-hover);
+
+  border-color:
+    var(--color-primary-hover);
+
+  color:
+    #ffffff;
+}
+
+
+/* 눌렀을 때 */
+
+div[data-testid="stButton"]
+> button:not(:disabled):active {
+
+  transform:
+    translateY(1px);
+}
+
+
+/* =========================================================
+   Find Account Row
+   ========================================================= */
+
+[data-testid="stHorizontalBlock"]:has(
+  div[data-testid="stCheckbox"]
+) {
+  align-items: center;
+}
+
+
+/* ID / 비밀번호 찾기 버튼 */
+
+button[kind="secondary"] {
+  background:
+    rgba(255, 255, 255, 0.88);
+}
+
+
+/* =========================================================
+   Signup guide
+   ========================================================= */
 
 .signup-guide {
-    color: rgba(51, 51, 51, 0.50);
+  margin-top: 24px;
+  margin-bottom: 8px;
 
-    font-size: 13px;
+  text-align: center;
 
-    text-align: center;
+  color: #929292;
 
-    margin-top: 20px;
-
-    margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 
-/* =====================================================
-   로그인 이미지
-===================================================== */
+/* =========================================================
+   Image
+   ========================================================= */
+
+div[data-testid="stImage"] {
+  width: 100%;
+}
+
 
 div[data-testid="stImage"] img {
-    border-radius: 20px;
+  width: 100%;
+
+  height: 670px;
+
+  object-fit: cover;
+
+  border-radius:
+    var(--radius-card);
+
+  display: block;
 }
 
 
-/* =====================================================
-   반응형
-===================================================== */
+/* =========================================================
+   Alert
+   ========================================================= */
 
-@media (max-width: 1000px) {
+.stApp
+[data-testid="stAlertContainer"] {
 
-    .block-container {
-        padding-left: 20px;
+  margin-top: 8px;
 
-        padding-right: 20px;
-    }
+  padding: 14px 16px;
 
+  border:
+    1px solid
+    var(--color-border);
 
-    .login-main-title {
-        font-size: 32px;
+  border-radius:
+    var(--radius-control);
 
-        white-space: normal;
+  background:
+    rgba(255, 255, 255, 0.95);
 
-        margin-top: 25px;
-    }
-
-
-    .navbar-logo {
-        font-size: 19px;
-    }
+  font-size: 14px;
+}
 
 
-    .navbar-slogan {
-        font-size: 10px;
+.stApp
+[data-testid="stAlertContainer"]
+p {
 
-        white-space: normal;
-    }
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+.stApp
+[data-testid="stAlertContainer"]:has(
+  [data-testid="stAlertContentError"]
+) {
+
+  color:
+    var(--color-danger);
+
+  border-color:
+    #efb3b3;
+}
+
+
+.stApp
+[data-testid="stAlertContainer"]:has(
+  [data-testid="stAlertContentSuccess"]
+) {
+
+  color:
+    var(--color-success);
+
+  border-color:
+    #b5dcb7;
+}
+
+
+.stApp
+[data-testid="stAlertContainer"]:has(
+  [data-testid="stAlertContentWarning"]
+) {
+
+  color:
+    var(--color-warning);
+
+  border-color:
+    #efd39b;
+}
+
+
+/* =========================================================
+   Optional separator
+   "또는" UI를 login.py에서 HTML로 넣을 경우 사용
+   ========================================================= */
+
+.login-divider {
+  width: 100%;
+
+  margin:
+    28px 0
+    20px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  color: #999999;
+
+  font-size: 14px;
+}
+
+
+.login-divider::before,
+.login-divider::after {
+
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background:
+    #dddddd;
+}
+
+
+/* =========================================================
+   Kakao Login
+   login.py에서 HTML/button class를 별도로 사용할 경우
+   ========================================================= */
+
+.kakao-login-button {
+  box-sizing: border-box;
+
+  width: 100%;
+
+  min-height: 58px;
+
+  border: 0;
+
+  border-radius:
+    var(--radius-control);
+
+  background:
+    #fee500;
+
+  color:
+    #191919;
+
+  font-family:
+    var(--font-family);
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+}
+
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  :root {
+    --page-padding-x: 28px;
+  }
+
+
+  .login-main-title {
+    font-size: 42px;
+  }
+
+
+  div[data-testid="stImage"] img {
+    height: 610px;
+  }
+
+}
+
+
+@media (max-width: 850px) {
+
+  :root {
+    --page-padding-x: 18px;
+  }
+
+
+  .navbar {
+    padding:
+      18px 20px;
+
+    margin-bottom:
+      28px;
+  }
+
+
+  .navbar-logo {
+    font-size:
+      24px;
+  }
+
+
+  .navbar-text {
+    display:
+      none;
+  }
+
+
+  [data-testid="stHorizontalBlock"]:has(
+    .login-main-title
+  ) {
+
+    flex-wrap:
+      wrap;
+
+    gap:
+      28px;
+  }
+
+
+  [data-testid="stHorizontalBlock"]:has(
+    .login-main-title
+  )
+  > [data-testid="stColumn"] {
+
+    flex:
+      1 1 100% !important;
+
+    width:
+      100% !important;
+
+    min-width:
+      0 !important;
+  }
+
+
+  .login-main-title {
+    margin-top:
+      0;
+
+    font-size:
+      38px;
+  }
+
+
+  div[data-testid="stImage"] img {
+
+    height:
+      450px;
+  }
+
+}
+
+
+@media (max-width: 520px) {
+
+  :root {
+    --page-padding-x:
+      14px;
+
+    --input-height:
+      50px;
+
+    --button-height:
+      52px;
+  }
+
+
+  .block-container {
+
+    width:
+      calc(
+        100% -
+        var(--page-padding-x) * 2
+      );
+  }
+
+
+  .navbar {
+
+    min-height:
+      auto;
+
+    padding:
+      16px;
+
+    border-radius:
+      16px;
+  }
+
+
+  .navbar-logo {
+
+    font-size:
+      22px;
+  }
+
+
+  .navbar-slogan {
+
+    font-size:
+      13px;
+  }
+
+
+  .login-main-title {
+
+    font-size:
+      32px;
+
+    letter-spacing:
+      -1px;
+  }
+
+
+  .login-description {
+
+    font-size:
+      15px;
+
+    margin-bottom:
+      24px;
+  }
+
+
+  div[data-testid="stImage"] img {
+
+    height:
+      340px;
+
+    border-radius:
+      16px;
+  }
+
 }

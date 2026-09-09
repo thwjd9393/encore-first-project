@@ -1,0 +1,44 @@
+{
+  "name": "피자스쿨 신대방삼거리역점",
+  "place_id": "8130317",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA5MDFfMTcz/MDAxNzg4MjY2OTgzNjQx.tPFJuurujIj9rAO_vfFmf0_h35gqcOJLj09RjYxX9Wog.qsgs-lYWGWOBjxy0H2Fby09sLm48GVJ-htAdd8gUH7Mg.JPEG/IMG＿6773.jpg?type=w966"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA5MDFfMTAz/MDAxNzg4MjY3MTIwMzU3.0Y6SvDJJ9dHSeRCAso6T9T8-MCdVVVwNe6bycD-zPmkg.IOVrRnx4F1mLHNSlpLOl63cTRaaw8XPwKht_THIrhvEg.JPEG/IMG＿6770.jpg?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MjBfODcg/MDAxNzc5MjgzODgwODg5.3xP8zX1vA5bMrC__9DeWXL4ATgmdxkoLtgQ2XdAnpVUg.tGP--95cNAsOLBAqI71IUGfwBQ0d3XNOorfUEZuJubEg.JPEG/IMG＿0407.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MjBfMjM1/MDAxNzc5MjgzODgwMzcx.8aronnIe3gzMKCxxwkU3W2egePvxj8ISVSXcJLzVvHAg.4skZUj5Ehg7N2fj0Hpm_-P46FumIDOmV967LPjNy_Gkg.JPEG/IMG＿0413.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MjBfMjcx/MDAxNzc5MjgzODgwODk2.bF8jmeErUEs5fHiQC5sRJshj_5sVPdKoXIIoB1pqO44g.airZNJxtJhBnIZK3OZmeGHo30Vi0YiF_w34UeUAwcxcg.JPEG/IMG＿0419.jpg?type=w773"
+    }
+  ]
+}
