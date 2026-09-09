@@ -1,0 +1,44 @@
+{
+  "name": "스미비부타동",
+  "place_id": "1986219936",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/dcd88ab8ffc9d66a85d1b61ae4a06bbecae05396?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/4a49c824322d28b0c443cf5a7800179aa502b3dc?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://blogfiles.pstatic.net/MjAyNDAzMTdfMTE0/MDAxNzEwNjY0NDIwMDg4.cS1kwa2T-BXTbGGTbW0wI7c9CzA1xwOsrVelkx8sNrYg.UvQMKVlpZ2SttEz_xfd00HIujTHkcqwjHPC9i6iRXHcg.JPEG/20240116＿115042.jpg?type=w1"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjlfMTkg/MDAxNzg1MzAwMjQ3MTA5.3IWUTLR8jvkInrGJHu6CX1Z_P0UvFJueEt8LLUdsyIAg.HjGstFII9ak1HolNNNU_QtaA8gaxKXB8zryhcPHIkRAg.JPEG/IMG＿2935.jpg?type=w580"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MjlfMjQy/MDAxNzg1MzAwMjMzNDAz.IKqmWsy7DkwVrZgZDJGtqNXitnQ2LQleks_bMjN3Hlsg.hrYs_vvFSYsNjV_r_pEB3YAKzeJjY7zjL7YYd14c0vEg.JPEG/IMG＿2946.jpg?type=w580"
+    }
+  ]
+}

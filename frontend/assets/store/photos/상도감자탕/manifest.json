@@ -1,0 +1,44 @@
+{
+  "name": "상도감자탕",
+  "place_id": "875981775",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/8ee70973873934572dc74020bc049017d49d51e4?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/a7bcc192037bed45971e3b2f7f27608fbb4ff67a?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDVfMjAw/MDAxNzgzMjQ2OTMzMzg3.kLkWqkfMipvGLHifLOZ1D5gi8sanPt15PLl6W1DTixgg.oc39xwiHMX7Wy6rFbRj_J_9pWv7KYzwgeBC5iJPCXz0g.JPEG/IMG＿3755.JPG?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDVfMjUw/MDAxNzgzMjQ2OTMzODUy.svP6LbAOoMzkm8XLeycW9K86g0bfqUZreSMSNt2ScJ0g.qVezPgvmjWqp9n4mEnZbskkfUzT6_5ehFyV3BDuInXYg.JPEG/IMG＿3759.JPG?type=w386"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/ed8d941dadc4c75b73ba3f66da2dbec2722b680d?original"
+    }
+  ]
+}

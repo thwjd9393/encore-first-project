@@ -1,0 +1,44 @@
+{
+  "name": "뱃살도둑 신대방삼거리점",
+  "place_id": "721918204",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNDA1MjdfMTU1/MDAxNzE2NzcxMDE2MTY1.TAdnoU96_GHTGyIiJwx11IzghrVB6b2RnrDw6HCDcSYg.WNfl_DkwWfHnHcvw7S8GUBGPI0fUJ7FsAjaseQor058g.JPEG/a84c9544-343e-4351-a798-7a3332d762e4.jpg?type=w966"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNDA3MjRfMTU1/MDAxNzIxODAyMDgyMTE0.vtVsOrLHCrQnuw2wMueZRsuljm28H1UNYcUtXnJRx-og.k4ANIYLDzmDbJ0Tx94C0bAA8IzdflxXyFvG6Cd7mDzAg.JPEG/20240724＿142920.jpg?type=w773"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNTA1MjlfMTgx/MDAxNzQ4NDkxMTUxMjM1.3qtjg-3yiRUdDZRlmx9MMaLWdinGyxWTff_VmYDY5Cog.dvt3HCBeqqwhbOT4Vk2Khhg7U6McNaYOrhvasAvxOIcg.JPEG/IMG＿0399.jpg?type=w773"
+    },
+    {
+      "file": "0004.png",
+      "category": "분위기",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/d0fef33faccad6fe0a1484d154078aa95758873f?original"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNTA1MjlfNjgg/MDAxNzQ4NDkxMDI1MjM3.cMYD6rmLMAzuvKvQQUfNADvUjpAafQAK7um5toqQFicg.Uu48ut5HD8rLlDHPtQCrQNE1YA0AtiJqJsz22PJSX30g.JPEG/output＿2190146194.jpg?type=w773"
+    }
+  ]
+}

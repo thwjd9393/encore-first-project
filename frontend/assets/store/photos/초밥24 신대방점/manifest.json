@@ -1,0 +1,44 @@
+{
+  "name": "초밥24 신대방점",
+  "place_id": "59224615",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyMzA5MDFfMjMw/MDAxNjkzNTQ1NDM5NDk3.LtufUvL84QmeBdfpjoDMvssCDE6FoCOsNzqPABPg5Rsg.ub_ZaY5qVtlefmK7_OMtvP2n_LF4c-u_3mMu2mLSlssg.JPEG.nano12030/IMG_6748.jpg?type=w966"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyMzA5MDhfMTcy/MDAxNjk0MTUxMDcwNjky.1knhZLF5lvrRDls3lMYf0Fr5yORCl9nnK6KfFq2BOiIg.Z2sWag53id-dC91y-LaVEvrdwVlEfVSLcBoqeKbhIfQg.JPEG.nano12030/output_2477079342.jpg?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/0CFD885A1FDB4DB3B7B79144BD921AD7"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyMzExMDlfMjI0/MDAxNjk5NTM3NzcyMjM4.UigUppj-xDAWM9tSTyLT7asULwDXgGATxHZ9uQKzMckg.ywR7ftjlrHnXp5JK4IxLtyZwCWgdoV-Bt2yWAnFl9XIg.JPEG.ppooiiuu78/20231109＿151035.jpg?type=w580"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyMzExMDlfMjA1/MDAxNjk5NTM3NzcyNDQ0.FNquoalVXeursh4lhnBLhquFc59qgQa1qz4oh-5u0tEg.8rs50s1iBmSc1mvlYglERL4qnuUYfr2RNox_ja4BZF0g.JPEG.ppooiiuu78/20231109＿151028.jpg?type=w580"
+    }
+  ]
+}

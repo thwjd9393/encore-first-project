@@ -1,0 +1,44 @@
+{
+  "name": "서평면옥",
+  "place_id": "719980524",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/34f6c19bbae9a5a073a2b43dcb71b89bbf9e6a95?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/ed01396f4218d3cc2c13e95430816969518f4644?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA5MDFfMzkg/MDAxNzg4MjQ1NDM3OTQx.5j2c-fo2tI_QOsoJL74OG-wn0ny01mHIxP6o7pGlX-8g.n4kgtnSGSvSR9VrouY7-D6Q3tdMRKI_jeNHRWXsd2Pwg.JPEG/KakaoTalk_20260728_111417797_12.jpg?type=w966"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA5MDVfNDIg/MDAxNzg4NTg5NTc2MDYx.OkCdnauCLRIOYhM4hydd_FEkI1YJy62XkDzfuRerjQEg.KgzOgI74-2O-MC4XwqflMqrGSJeIeKhhLvs84Qtlv58g.JPEG/IMG＿6467.jpg?type=w773"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/ffc6aabe05a5df46e664d4967cfab15a6d351d2d?original"
+    }
+  ]
+}

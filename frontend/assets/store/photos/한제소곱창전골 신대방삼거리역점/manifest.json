@@ -1,0 +1,44 @@
+{
+  "name": "한제소곱창전골 신대방삼거리역점",
+  "place_id": "859415480",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/381c8a686232499d4497721653bc7ceda279ae7b?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/b96909695d85f731df566b23f421fa57e1b3a452?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNDEwMTdfMjc4/MDAxNzI5MTUxNjc1ODQy.ihsbMEiXMLnJqG0MgQhb8lm0Dy2octr6A-mboAcMFs0g.Kj5Mis0iAy__lbMy5QfLS2_o5bRmXSSuS-6qOvw3Cacg.JPEG/IMG_6217.JPG?type=w386"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/2DA0F8A176504AD09F7731D07EA16939"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MDFfMTQz/MDAxNzc3NTY2ODUwNDMy.A_yX6E4BtJITeZJcG2fkCWUxkOX3jEPJApohYzYBXakg.ECs4e_CP2srk7o0k9g-k659VC3Q0GAEp5jKLQCe9moYg.JPEG/SE-cc276846-6b3d-4703-bd56-0c326d1c6cba.jpg?type=w386"
+    }
+  ]
+}

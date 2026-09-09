@@ -1,0 +1,44 @@
+{
+  "name": "시간을들이다 본점",
+  "place_id": "789369795",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/73fff41e66fa3ea720a6406c804822eb7352e2c2?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/0c8bfd2cd827ca5850101e74f47c48f52db191b8?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MjdfNTAg/MDAxNzgyNTY0NDA3MTM2.sm-Wh-Uij2qnX52cydEuHrbn26OPB0gKuk3lbPH5qX0g.GOJsnb0bSXRRTG0dHiS1BGgw5tpU1nIICStU1auJJgAg.JPEG/SE-b5bbfbb3-71de-11f1-9aca-45953c181659.jpg?type=w386"
+    },
+    {
+      "file": "0004.png",
+      "category": "분위기",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/dda1bccd948011896ada0e784ec107e5aa962c1d?original"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/b74062801ea559b48cd4fce43e21b68da7ae48e0?original"
+    }
+  ]
+}

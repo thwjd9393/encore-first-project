@@ -1,0 +1,44 @@
+{
+  "name": "즉석손바지락칼국수",
+  "place_id": "16296223",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/4d597cf95a6934dc4c9dd941bf5a99e8e290e532?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/c108cb427b878ad8f2f5779511e5f9b7579e2ff3?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/18EE093AA2744B7985AC55C94F76DFFD"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MzFfMjI1/MDAxNzgwMjA4NjQwODM4.wqzVXcynsPsJwqV9yZ8RmxFp4MJ5nkHXCyTinnVU8iog.J52RjVXFY6Obg6-Qwwlxq5rovOA0JCYogaMxasD8QQMg.JPEG/SE-3A3CE18A-7D37-45BC-8C43-C7AFB64048C8.jpg?type=w466"
+    },
+    {
+      "file": "0005.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/b9715462c81c09659ee2cdd5a866348ffecf285e?original"
+    }
+  ]
+}

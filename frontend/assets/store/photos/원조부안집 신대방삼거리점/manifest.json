@@ -1,0 +1,44 @@
+{
+  "name": "원조부안집 신대방삼거리점",
+  "place_id": "1997673860",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDVfMTMx/MDAxNzgzMjI0Nzk5NTc4.Vd6u39NqHjfbFMpJEoGlBodZtF80h_p2l0tW0IMJiucg.58Nl7UuKclw2H2bh4ldb2woQFC-asHmsTjbJfyeYDUQg.JPEG/IMG＿2689.jpg?type=w773"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjAzMTFfMjk4/MDAxNzczMjA2Mjg4NTU3.o8nMhtq5MvZ61DwWLs_Ttr8EJK6MU2_zisBp4-EA8nQg.K5vKIOdklACmJQtQS_2i2FHKm8ChLbwf2WyyXvp7oSQg.JPEG/668_20260307210322058937_16_edited.jpg?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDVfMjQ0/MDAxNzgzMjI0ODEzMjE1.PfVUNtW4XuCIXDpgiQu-FgAb1WMxHndBGVbFzj0HIQ0g.U7ellkFh2hR9Wx4uNeZEOTRA8yWc_eK7sn-3QcLTc5Ug.JPEG/output＿1024878296.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDVfODAg/MDAxNzgzMjI0Nzk3MTg2.dY8GiWkC6uq3_RE8JrTQYeIdRRKKlsPGS3ppC-k6oWMg.O5W9hcvMAr3YTwjF4Iu5Qgfbz1DZobx6APu4gklsY2Ag.JPEG/IMG＿2694.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MDFfMTcy/MDAxNzc3NjMzODYwMzQ1.iKycBKB3rGLnaAhywiIrH4AhiEOrS-rUVhW1aiMMloMg.seY9fOPFeEG25iodivt9M87NTsvgQ-TGZzQUy0lgR8Ig.JPEG/IMG＿7985.JPG?type=w466"
+    }
+  ]
+}

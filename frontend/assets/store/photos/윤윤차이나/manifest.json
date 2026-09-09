@@ -1,0 +1,44 @@
+{
+  "name": "윤윤차이나",
+  "place_id": "969952160",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTNfMjE5/MDAxNzg2NTg2NTg1MzE5.2NAo79TcKrzjUIMpl0hiSp1xSCxYY66bdj-9AsFhBE4g.tG9_-_imvN5sC7jR7HQX2EyTUbBtHcwfp7nR7uPZ-64g.JPEG/SE-6f71c1f8-96b1-11f1-bded-01759fcee54f.jpg?type=w773"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTNfMTYg/MDAxNzg2NTg1MDc4NzIw.AoN5q2pS1mZ_04R-u4tfWilkdzxTXLyu1VsgJaKEu_Eg.dx23H-CNJFsFPmBdJDLEd5kDtjp7cEAd04CO8DbUAw8g.JPEG/SE-6f6f9f17-96b1-11f1-bded-511b5a172359.jpg?type=w773"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MDhfNTYg/MDAxNzc4MjQxMzI5Njc0.AJPSbxfxHrTGDRRB-0SRqPeNbZpLoluaQrAs6h08wbYg.kBLvl6PA6pL_TyPfED4Y5K-xjsQfgB0SfHXaG4xEfXUg.JPEG/IMG_1389.jpg?type=w966"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTRfNzYg/MDAxNzg2NjYwMzMxMTU2.nYkK33e_y4smOKRQWRTUXpWwJWIV0NmtABJwdjaTLrAg.-GyTaNJsssFuGL9OeDwuSzSmdy2vYESRXtcPoon_jswg.JPEG/IMG＿1157.JPG?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MTRfMTkz/MDAxNzg2NjYwMzA4MjU5.WS-4SN5nIX1gAwbb6FgSYfTjqtnoQLrSI5CLsXmgXcAg.zzfx_aDnb-Sh5F1VMdP0Phl3jg8rqEymeCuoUh0ycxog.JPEG/IMG＿1141.JPG?type=w386"
+    }
+  ]
+}

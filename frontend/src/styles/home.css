@@ -1,0 +1,555 @@
+:root {
+    --color-primary: #FF7A00;
+    --color-secondary: #FFB368;
+    --color-background: #FFF9F4;
+    --color-text: #333333;
+    --color-surface: #FFFFFF;
+    --color-muted: #666666;
+    --color-border: #DDDDDD;
+
+    --radius-navbar: 18px;
+    --radius-control: 10px;
+    --radius-card: 20px;
+
+    --shadow-common:
+        0 4px 16px rgb(51 51 51 / 6%);
+}
+
+
+/* =========================================================
+   Streamlit 전체
+========================================================= */
+
+.stApp {
+    background: var(--color-background);
+}
+
+header[data-testid="stHeader"] {
+    display: none;
+}
+
+footer {
+    display: none;
+}
+
+.block-container {
+    max-width: 1000px;
+    padding-top: 28px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 35px;
+}
+
+
+/* =========================================================
+   Navbar
+========================================================= */
+
+.playeat-navbar {
+    /* width: min(1320px, calc(100vw - 28px)); */
+    min-height: 90px;
+
+    margin: 0 auto;
+    padding: 18px 40px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E8ECEF;
+    border-radius: 18px;
+
+    box-shadow: var(--shadow-common);
+}
+
+.st-key-playeat_user_navbar {
+    margin: 0 auto 24px;
+    padding: 12px 24px;
+    background: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 18px;
+    box-shadow: var(--shadow-common);
+}
+
+.st-key-playeat_user_navbar div[data-testid="stButton"] > button {
+    min-height: 46px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.playeat-logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.playeat-symbol {
+    font-size: 35px;
+}
+
+
+.playeat-logo {
+    color: #163D56;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+.playeat-logo span {
+    color: var(--color-primary);
+}
+
+
+.playeat-logo-sub {
+    margin-top: 2px;
+
+    color: #29465B;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.playeat-logo-sub strong {
+    color: var(--color-primary);
+}
+
+
+.playeat-nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+
+.nav-item {
+    position: relative;
+
+    min-height: 45px;
+
+    display: flex;
+    align-items: center;
+
+    color: #28455A;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.nav-item.active {
+    color: var(--color-primary);
+}
+
+
+.nav-item.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 3px;
+
+    background: var(--color-primary);
+
+    border-radius: 10px;
+}
+
+
+.logout-button {
+    min-width: 145px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-primary);
+
+    font-weight: 700;
+
+    border:
+        1.5px solid
+        var(--color-primary);
+
+    border-radius: 12px;
+}
+
+
+/* =========================================================
+   Home
+========================================================= */
+
+.home-container {
+    width: min(900px, calc(100vw - 40px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   Hero
+========================================================= */
+
+.home-hero {
+    padding-top: 28px;
+    padding-bottom: 20px;
+
+    text-align: center;
+}
+
+
+.home-hero h1 {
+    margin: 0;
+
+    color: #163D56;
+
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    letter-spacing: -1px;
+}
+
+
+.home-hero span {
+    color: var(--color-primary);
+}
+
+
+/* =========================================================
+   검색창
+========================================================= */
+
+div[data-testid="stTextInput"] input {
+    height: 54px;
+
+    padding-left: 24px;
+
+    border:
+        1.5px solid
+        var(--color-primary);
+
+    border-radius: 999px;
+
+    font-size: 16px;
+
+    background: #FFFFFF;
+}
+
+
+div[data-testid="stTextInput"]
+[data-baseweb="input"] {
+    border: 0;
+    background: transparent;
+}
+
+
+/* =========================================================
+   Button
+========================================================= */
+
+div.stButton > button {
+    min-height: 50px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    border-radius: 999px;
+}
+
+
+div.stButton >
+button[kind="primary"] {
+    color: #FFFFFF;
+
+    background:
+        var(--color-primary);
+
+    border:
+        1px solid
+        var(--color-primary);
+}
+
+
+div.stButton >
+button[kind="secondary"] {
+    color: #23465E;
+
+    background: #FFFFFF;
+
+    border:
+        1px solid
+        #D8E0E6;
+}
+
+
+/* =========================================================
+   추천 제목
+========================================================= */
+
+.recommend-title {
+    margin-top: 24px;
+    margin-bottom: 14px;
+
+    text-align: center;
+
+    color: #173D55;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   식당 카드
+========================================================= */
+
+.restaurant-card {
+    width: 570px;
+    max-width: 100%;
+
+    min-height: 145px;
+
+    margin: 0 auto;
+
+    padding: 8px;
+
+    display: flex;
+    gap: 24px;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E2E7EB;
+    border-radius: 14px;
+
+    box-shadow: var(--shadow-common);
+}
+
+
+.restaurant-image {
+    flex: 0 0 315px;
+}
+
+
+.image-placeholder {
+    width: 100%;
+    height: 132px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #EEEEEE;
+
+    color: #888888;
+
+    border-radius: 8px;
+}
+
+
+.restaurant-content {
+    flex: 1;
+}
+
+
+.restaurant-name {
+    color: #173D55;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.restaurant-address {
+    margin-top: 10px;
+
+    color: #748999;
+
+    font-size: 14px;
+}
+
+
+.restaurant-tags {
+    margin-top: 16px;
+
+    display: flex;
+    gap: 8px;
+}
+
+
+.restaurant-tags span {
+    padding: 6px 13px;
+
+    color:
+        var(--color-primary);
+
+    background: #FFF2E7;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 7px;
+}
+
+
+/* =========================================================
+   추천 이유 영역
+========================================================= */
+
+.recommend-reason {
+    height: 58px;
+
+    margin-top: 14px;
+
+    border:
+        1px dashed
+        #AABDC9;
+
+    border-radius: 7px;
+}
+
+
+/* =========================================================
+   만족도
+========================================================= */
+
+.feedback-line {
+    margin-top: 26px;
+
+    border-top:
+        1px solid
+        #CCD6DC;
+}
+
+
+.feedback-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    color: #173D55;
+
+    text-align: center;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.block-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-top: 28px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 35px;
+}
+
+.st-key-home_content {
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chat-box {
+    width: 100%;
+    height: 300px;
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+    background: #FFFFFF;
+    border: 1px solid #E2E7EB;
+    border-radius: 20px;
+
+    box-shadow: var(--shadow-common);
+
+    overflow: hidden;
+}
+
+.chat-header {
+    flex-shrink: 0;
+    padding: 16px 20px;
+
+    color: #173D55;
+    font-size: 16px;
+    font-weight: 700;
+
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.chat-message-list {
+    flex: 1;
+    padding: 18px 20px;
+
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.chat-row {
+    width: 100%;
+    display: flex;
+    margin-bottom: 14px;
+}
+
+.user-row {
+    justify-content: flex-end;
+}
+
+.assistant-row {
+    justify-content: flex-start;
+}
+
+.chat-message {
+    max-width: 70%;
+    padding: 11px 15px;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    word-break: break-word;
+    border-radius: 14px;
+}
+
+.user-message {
+    color: #FFFFFF;
+    background: var(--color-primary);
+
+    border-bottom-right-radius: 4px;
+}
+
+.assistant-message {
+    color: #333333;
+    background: #FFF3E8;
+
+    border-bottom-left-radius: 4px;
+}
+
+.chat-message-list::-webkit-scrollbar {
+    width: 7px;
+}
+
+.chat-message-list::-webkit-scrollbar-thumb {
+    background: #D6D6D6;
+    border-radius: 999px;
+}
+
+.chat-message-list::-webkit-scrollbar-track {
+    background: transparent;
+}

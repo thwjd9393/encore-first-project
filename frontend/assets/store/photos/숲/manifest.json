@@ -1,0 +1,29 @@
+{
+  "name": "숲",
+  "place_id": "816401437",
+  "count": 2,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNTA2MTFfMjkz/MDAxNzQ5NjQ2NjE4MDMw.LlzNnhOXTqDUu38fH2upuy-8MtLo30Jd2Z8mg5inB70g.TqiwxaWc33UNp-zWNiowJerMJSJQoms1tag5POvZJmsg.JPEG/900＿20250607＿222147.jpg?type=w386"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNTA2MTFfODEg/MDAxNzQ5NjQ2NjE4NDE0.aXeXLJZKT-r-oVNPEyPHr6CD0hq83pBANalT5kW1S7Mg.XQPru-Ct99gxJMxo3-lIBqbPWmEKuKH-58aDmEEQWYYg.JPEG/900＿20250607＿211556.jpg?type=w773"
+    }
+  ]
+}

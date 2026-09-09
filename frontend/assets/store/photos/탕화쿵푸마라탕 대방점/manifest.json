@@ -1,0 +1,44 @@
+{
+  "name": "탕화쿵푸마라탕 대방점",
+  "place_id": "1477864750",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyMzA5MjZfMjU1/MDAxNjk1NzEzNjAyNDEw.xTc3ntA3yBZDzHkVpt1yQT9iB_ocqLLC436A0KwUlIYg.3dJImpXQ3wEE9c-OioTD9oC2mXNCKAGI9wNLEBfPA48g.JPEG.yeongeunmin255/KakaoTalk_20230926_160021523_01.jpg?type=w966"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNDAzMDVfMTMy/MDAxNzA5NjQ5NjQzODU1.NCuPv4duzfFPuRnjyVjtaP0ufJVV6mNLexyTruRv5IQg.Kbo32nHWNZY2htiguHhQsmTQQqtQtT-yRW926mtM5j0g.JPEG/SE-fed04821-d673-4c53-95a4-a0bf2e6ab2b8.jpg?type=w773"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjAzMjVfMTMg/MDAxNzc0NDQ0NDQxNzAz.pLC7XV5zZk6LrSTf89rjyXOJGzQ3KjUisV5eE7A9Rzcg.YNv2tB1uQvrKYbnFHsxwPogTvld3xiKcVUEsWPms5Ygg.JPEG/IMG＿6135.jpg?type=w386"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNTEyMDZfNjUg/MDAxNzY0OTc3MDQxMjQz.KKpf6zLmfjGpIZKtkE_1s6YW0OpTcVEP_tFJqYNs-Tsg.-1ibRTirk3SMC6XcVaXHROA7mQEL_ugc_MqfMepr54Ag.JPEG/output＿1529796532.jpg?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNDAzMjFfNTgg/MDAxNzExMDA3NTAwOTgz.lDEImXd-L5m0nFETVH3sVG3lIO7htSEXWfZxeQnHWAUg.B081oI4Uafx_6MwRz2XvOp1uCGhew8z-1okp-jeqI7Qg.JPEG/KakaoTalk_20240320_004931829_09.jpg?type=w773"
+    }
+  ]
+}

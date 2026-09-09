@@ -1,0 +1,44 @@
+{
+  "name": "이가초밥 신대방삼거리역점",
+  "place_id": "1998663882",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/0f0db46878c32d6eff4f47d2de7dc49a7fbf884d?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/7efbcea6678bf70b9b95f078d4c23c07f8fe0f5f?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA0MjNfMTg2/MDAxNzc2OTI1MzA3NTQ5.f7USZ_Eb3kbpZHrPcBVd6zuVQf7JPHQXo8B9VGdV8SUg.9NLRa5uf1dnXGy_QqPkIfQppip3ecLHnwzO2NEbVNuog.JPEG/IMG＿6926.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "http://t1.kakaocdn.net/mystore/88967BBED60B47D3874CCD264F9781F1"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA0MjNfNzkg/MDAxNzc2OTI2MDkzNDE2.NWAdhfLIWyHtj3yN7hnLcJugTsUcqzhWG2xa8Tn7pwwg.25GcwLIJgZZxRQmHaN_O6u6YJTLQMOq-gje2Kg4K6W4g.JPEG/IMG＿6943.jpg?type=w773"
+    }
+  ]
+}

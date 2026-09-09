@@ -1,0 +1,44 @@
+{
+  "name": "미태리 신대방삼거리역점",
+  "place_id": "937875688",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MDNfNTMg/MDAxNzgwNDQwNTkyNTI5.H-N2-UBdXYTBR3xK23jIs4ut46Dgef9rqJgt0Drctvkg.KnI2Hl6cFbkl4Y-Ahm8qq3eKUcZnXB7dW_npCe5d3UIg.JPEG/20260508_201717(0).jpg?type=w966"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MDNfMTYy/MDAxNzgwNDQwNjEwNTQ3.cWmfEpXoGuxW-IPKx_ryYETjeRDfttt-rxcJ0HZbRb8g.IpgkxZTQYzCOaMoLx_fcy_rBm3ObkM8fdTSiTR0jg7Eg.JPEG/20260507_184237.jpg?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNTAzMjdfOTEg/MDAxNzQzMDM2OTQwOTAw.MGbe8gaFzDMOGRgDttJZucHRQkLk8D4EnBrh5liHQW4g.adcy_gVdP9LHgJMYzkiDWRBnD9x_1cW8F1HwtBkKaZYg.JPEG/SE-4ce33a40-153a-452f-8d17-6f8517d26062.jpg?type=w966"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjAzMjFfMjc2/MDAxNzc0MDk5NjMxNzE4.OttCVFolXVmMQj-m5dPv4ubuVWNy5DCClyCwuAsX8Skg.HkJBJTnrEenSDxcM1JjdSfekcar_2fHQ7HVV0LJgARog.JPEG/IMG＿9460.JPG?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://dthumb-phinf.pstatic.net/?src=\"https://blogthumb.pstatic.net/MjAyNjA1MTBfNjcg/MDAxNzc4NDA0MTA4Njgx.nW1xTm6mkRZPADJv5YsPFxr7zZgw7QoaZeeZmxyrzXAg.yz-EhfTvQORKYjWKD-RKHzYnrD3WRQIQvFLbehIvi5cg.JPEG/20260507_155545.jpg?type=w2\"&type=ff500_300"
+    }
+  ]
+}

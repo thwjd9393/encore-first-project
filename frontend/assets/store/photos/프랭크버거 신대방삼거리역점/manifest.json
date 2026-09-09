@@ -1,0 +1,44 @@
+{
+  "name": "프랭크버거 신대방삼거리역점",
+  "place_id": "455521842",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/b566393b1f9f2c35b9b24e863a152bc46cb090fd?original"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDNfMTYw/MDAxNzgzMDExNTIzMjg5.YJwmAahKofnQifZMrYoAZAqzESCG6gDn5Wp0H4s-YNkg.yM-3qorpBX4oNuKQkArrrMfedQxt813c3O3BWhWVM8Yg.JPEG/1783011522609.jpg?type=w773"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MTVfMjkx/MDAxNzgxNDUwMjE1MTc5.0lwl1DucZlA8mSFdSuVgpnW0P-L2s-2Yh7crPpPDsVMg.5NcDQC839pBpJxUShqiqqui4vH19oJUjeXxSZ3kXRzAg.JPEG/슬라이드17.JPG?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDJfNDQg/MDAxNzgzMDAyOTUyNzAy.qojuhxRyP1steNpvz4_ZZ7GmVQ4sL1w9d7SdsWsPc3Ag.UpSs3j57d1KI9JxtbMbW4XEurpoE6Cz4zTFrQq7Webcg.JPEG/20260702_120600.jpg?type=w386"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA3MDJfMjU0/MDAxNzgzMDAyNzcxMjc4.-fymirqg5Ia6F9ST10b4X1fBjp6NzXmO09fv-nwVYggg.mrv_zUfA4AqaXeOUE86IWVhd4xMyAM4nJn_qGctMazQg.JPEG/1783002770392.jpg?type=w773"
+    }
+  ]
+}

@@ -1,0 +1,464 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+    --color-primary: #FF7A00;
+    --color-secondary: #FFB368;
+    --color-background: #FFF9F4;
+    --color-text: #333333;
+    --color-surface: #FFFFFF;
+    --color-muted: #666666;
+    --color-border: #DDDDDD;
+    --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --radius-control: 10px;
+    --radius-card: 20px;
+    --shadow-common: 0 4px 16px rgb(51 51 51 / 6%);
+}
+
+* {
+    font-family: var(--font-family);
+}
+
+.stApp {
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+header[data-testid="stHeader"] {
+    background: transparent;
+}
+
+.block-container {
+    max-width: 1000px;
+    padding-top: 28px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 35px;
+}
+
+.playeat-navbar {
+    min-height: 90px;
+    margin: 0 auto 24px;
+    padding: 18px 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 18px;
+    box-shadow: var(--shadow-common);
+}
+
+.st-key-playeat_user_navbar {
+    margin: 0 auto 24px;
+    padding: 12px 24px;
+    background: #FFFFFF;
+    border: 1px solid #E8ECEF;
+    border-radius: 18px;
+    box-shadow: var(--shadow-common);
+}
+
+.st-key-playeat_user_navbar div[data-testid="stButton"] > button {
+    min-height: 46px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.playeat-logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.playeat-symbol {
+    font-size: 35px;
+}
+
+.playeat-logo {
+    color: #163D56;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.playeat-logo span {
+    color: var(--color-primary);
+}
+
+.playeat-logo-sub {
+    margin-top: 2px;
+    color: #29465B;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.playeat-logo-sub strong {
+    color: var(--color-primary);
+}
+
+.playeat-nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.nav-item,
+.logout-button {
+    text-decoration: none;
+}
+
+.nav-item {
+    position: relative;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    color: #28455A;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.nav-item.active {
+    color: var(--color-primary);
+}
+
+.nav-item.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: 10px;
+}
+
+.logout-button {
+    min-width: 145px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-weight: 700;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 12px;
+}
+
+.empty-hint {
+    color: var(--color-muted);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* ----------------------------------
+   상단
+   ---------------------------------- */
+.mypage-title {
+    margin: 0 !important;
+    color: var(--color-text) !important;
+    font-size: 40px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+}
+
+.mypage-subtitle {
+    margin-top: 12px;
+    margin-bottom: 0;
+    color: var(--color-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+div[data-testid="stButton"] > button {
+    min-height: 52px;
+    margin-top: 2px;
+    padding: 0 24px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+div[data-testid="stButton"] > button:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+}
+
+/* ----------------------------------
+   태그
+   ---------------------------------- */
+.tag-card {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 32px;
+    margin-bottom: 24px;
+    padding: 24px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+
+    background-color: var(--color-surface);
+
+    color: var(--color-text);
+    font-size: 16px;
+}
+
+.tag-icon {
+    margin-right: 12px;
+    color: var(--color-primary);
+    font-size: 24px;
+}
+
+.tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 5px 10px;
+
+    border-radius: 10px;
+
+    background-color: #FFF0E2;
+    color: var(--color-primary);
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* ----------------------------------
+   공통 카드
+   ---------------------------------- */
+.mypage-card {
+    height: 425px;
+    box-sizing: border-box;
+    padding: 24px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+
+    background-color: var(--color-surface);
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 24px;
+
+    color: var(--color-text);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.card-icon {
+    margin-right: 9px;
+    color: var(--color-primary);
+    font-size: 25px;
+}
+
+/* ----------------------------------
+   최근 좋아요 식당
+   ---------------------------------- */
+.restaurant-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.restaurant-item:last-child {
+    border-bottom: none;
+}
+
+.restaurant-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.restaurant-name {
+    color: var(--color-text);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.restaurant-date {
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+.restaurant-location {
+    margin-top: 9px;
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+/* ----------------------------------
+   도넛 그래프 영역
+   ---------------------------------- */
+.menu-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+
+    height: 300px;
+}
+
+.donut {
+    position: relative;
+
+    width: 205px;
+    height: 205px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            #FF7A00 0% 40%,
+            #FF9138 40% 65%,
+            #FFB368 65% 80%,
+            #FFC99D 80% 90%,
+            #FFE0C4 90% 97%,
+            #E5E5E5 97% 100%
+        );
+}
+
+.donut::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 112px;
+    height: 112px;
+
+    border-radius: 50%;
+    background-color: var(--color-surface);
+
+    transform: translate(-50%, -50%);
+}
+
+.donut-center {
+    position: absolute;
+    z-index: 2;
+
+    top: 50%;
+    left: 50%;
+
+    width: 90px;
+
+    transform: translate(-50%, -50%);
+
+    color: var(--color-text);
+    text-align: center;
+}
+
+.donut-label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.donut-total {
+    margin-top: 2px;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+/* ----------------------------------
+   도넛 범례
+   ---------------------------------- */
+.menu-legend {
+    min-width: 125px;
+}
+
+.legend-row {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 15px;
+
+    font-size: 14px;
+}
+
+.legend-dot {
+    width: 11px;
+    height: 11px;
+
+    margin-right: 9px;
+
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.legend-name {
+    flex: 1;
+    color: var(--color-text);
+}
+
+.legend-value {
+    margin-left: 12px;
+    color: #777777;
+    font-weight: 500;
+}
+
+.dot-1 {
+    background-color: var(--color-primary);
+}
+
+.dot-2 {
+    background-color: #FF9138;
+}
+
+.dot-3 {
+    background-color: #FFB368;
+}
+
+.dot-4 {
+    background-color: #FFC99D;
+}
+
+.dot-5 {
+    background-color: #FFE0C4;
+}
+
+.dot-6 {
+    background-color: #E5E5E5;
+}
+
+/* Streamlit 기본 footer 숨기기 */
+footer {
+    visibility: hidden;
+}
+
+
+/* ----------------------------------
+   공통 가이드 반응형
+   ---------------------------------- */
+@media (max-width: 768px) {
+    .block-container {
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .mypage-title {
+        font-size: 32px !important;
+    }
+
+    .tag-card,
+    .mypage-card {
+        padding: 16px;
+    }
+
+    .menu-content {
+        height: auto;
+        flex-direction: column;
+        gap: 24px;
+    }
+}

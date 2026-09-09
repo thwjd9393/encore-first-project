@@ -1,0 +1,44 @@
+{
+  "name": "유가네한우곰탕 본점",
+  "place_id": "1021660187",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/77b669728c17824f5068d28bbc6a3d7126eece0a?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/fe47ddd0b72d49f6ae0ad638d7a2c88a5d6bbb67?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNTA0MjVfMTI0/MDAxNzQ1NTg1ODYxODU1.4yIqhjcEG5WF1auUyppvrf5lGtPKxWavGQMC9sLJn8sg.V55SycwKy0_oOWBaoi3c6SPVNZbWuun-1qOQ6KTXkzMg.JPEG/SE-5f96e420-972e-4998-be2e-29b02043fcee.jpg?type=w580"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNTA0MjVfMjI0/MDAxNzQ1NTg1NTA0Mjk4.jgvz2zyrNGfu35mg4QF40_b4Z3paQzPTXLiKGn55p2og.BUw3tBu5U9wdUg3w5Gu0btEcTjilsDJGuMJbPmv8osgg.JPEG/KakaoTalk_20250425_214854796_14.jpg?type=w580"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNTA0MjVfMjIg/MDAxNzQ1NTg1NTAyNjgx.C4HMmx_cjWVKLTj4Ij3KYJ0YCqY8nnUl-KiBp5BccVYg.5yud9ZbBospzr_ARn9VEeH70yXiW_vhbfFLQt4OEBxAg.JPEG/KakaoTalk_20250425_214854796.jpg?type=w580"
+    }
+  ]
+}

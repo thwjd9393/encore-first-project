@@ -1,0 +1,44 @@
+{
+  "name": "이고집쭈꾸미 신대방점",
+  "place_id": "1414024273",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/d6758cd653db1d0b6e214d15bb10cea4d072ba13?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/30051da217790c1acfd3985857777ce4495c4127?original"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA2MTVfMTAx/MDAxNzgxNTE4NzI2ODEx.56nA28kqafQnduGyxZ9kNerHuDC6H-D3t5NGwQzHQusg.7oCCyFXaoN1IEcwljk-avQv5VfWYCHnn7QepEKDwVC4g.JPEG/IMG＿9209.JPG?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjAxMzFfMzEg/MDAxNzY5ODE0NTM0NjQy.YxkBKoDFQlbioTdOr9TM4xPhFWElvV-jEOEqslINT84g.T_7Dblg2x4Vx-9TEzxULj-rMlowN5QhbUOFORC3yQFQg.JPEG/900＿20260116＿115313.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA1MjFfMTMx/MDAxNzc5MzczNjc0MTE5.TWNqiI9EU1XyNsiheuWk5Y0a99kccwsg8LpkbEfKMV0g.-JlAnT2aApR5dcFFrHew0eUBKBXuh5hXWSWj2WADfckg.JPEG/SE-720d94f4-a789-4451-a676-e42543a2f343.jpg?type=w966"
+    }
+  ]
+}

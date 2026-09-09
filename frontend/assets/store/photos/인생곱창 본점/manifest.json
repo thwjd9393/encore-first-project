@@ -1,0 +1,44 @@
+{
+  "name": "인생곱창 본점",
+  "place_id": "1714510710",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/349358c8de00454eba9aca08ffd19af3a06ab60a?original"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MjdfMTUz/MDAxNzg3ODE2NDY2ODY5.E95crnMG-UzeDxI_5UL4C0Hkrb1KO7g-YGDkbNQQfKog.I5ZHDyCEtytrEli4tCUK2D4RFCqac_3OQWuClEyAXyUg.JPEG/KakaoTalk_20260806_150112436_28.jpg?type=w966"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "메뉴판",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MjVfMTA3/MDAxNzg3NjM4ODA0NjA4.lY_jzJ5urPhMfqVq78btbcZHjgVt6XGHu4sscCZaoIMg.7iUQHpHAfn-7cPzuBwUfOlL8d28MCQ-jSt3ggsnScXwg.JPEG/900_20260824_182549.jpg?type=w773"
+    },
+    {
+      "file": "0004.jpg",
+      "category": "분위기",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MjVfMjg1/MDAxNzg3NjM4Nzk3MjY2.TImY8pYqtXJnucdJ6C6wV7ke2sLusP9u1ko9K4_s-IYg.wOAOwK_1Mm7D5U76W-MJyORbtYW8BuNW4t-HVl0i3ywg.JPEG/900_20260824_182837.jpg?type=w773"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MjVfMTc0/MDAxNzg3NjM4ODAwODY5.NvJXCLDNu8Pka_FjtetdV3kTEXoKBt-blsCF9G33DdMg.q_cRpEislhrtQXfGGjBKL7H9SCXNjNuVipFYPSQAhscg.JPEG/900_20260824_182401.jpg?type=w773"
+    }
+  ]
+}

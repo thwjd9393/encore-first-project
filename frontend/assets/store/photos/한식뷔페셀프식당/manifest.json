@@ -1,0 +1,44 @@
+{
+  "name": "한식뷔페셀프식당",
+  "place_id": "1694522095",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/124e6c09e286fff38b459c8bea37c1094ef6064b?original"
+    },
+    {
+      "file": "0002.jpg",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/c3806bda2bf462c1b27aaf5cc226b340ca417427fc58cae8a56d2fdb61945dfc"
+    },
+    {
+      "file": "0003.jpg",
+      "category": "외관",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/0A3963CA2116475EAB0717B1EBECD88B"
+    },
+    {
+      "file": "0004.png",
+      "category": "외관",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/987cdc3cede8088903a8f833a6e37461e3af9070?original"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "https://postfiles.pstatic.net/MjAyNjA4MjhfMjE5/MDAxNzg3ODYzMDQ3MjM3.V8fM9J3dAFJSGh0p2H1WBxuVSBFwvH0q707tiUV-tncg.X1dcQqQcMMrotUdsEuFfork9Y2rcW0xbWLbSzkRVAfwg.JPEG/900_20260827_091605.jpg?type=w966"
+    }
+  ]
+}

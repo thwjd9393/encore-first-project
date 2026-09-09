@@ -1,0 +1,44 @@
+{
+  "name": "자주피자",
+  "place_id": "607377776",
+  "count": 5,
+  "priority": [
+    "음식",
+    "메뉴판",
+    "분위기",
+    "외관"
+  ],
+  "quota": {
+    "음식": 2,
+    "메뉴판": 1,
+    "분위기": 1,
+    "외관": 1
+  },
+  "files": [
+    {
+      "file": "0001.png",
+      "category": "음식",
+      "original": "http://t1.kakaocdn.net/local/kakaomapPhoto/review/b7bcb13ec20deeb954664a69b011c1e6e2f911da?original"
+    },
+    {
+      "file": "0002.png",
+      "category": "음식",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/80dcfc2d50d7bd643cf2665f9fd2399a8be39e6f?original"
+    },
+    {
+      "file": "0003.png",
+      "category": "메뉴판",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/d75704241d3793e34c87e07d35b35bd80b152d17?original"
+    },
+    {
+      "file": "0004.png",
+      "category": "분위기",
+      "original": "http://t1.daumcdn.net/local/kakaomapPhoto/review/8cb4c53e5c99b9e7fb48b048a4e5c6c14a0f3aca?original"
+    },
+    {
+      "file": "0005.jpg",
+      "category": "외관",
+      "original": "http://t1.kakaocdn.net/fiy_reboot/place/07E0681F2EA946D1BBBED2BA41AA36BC"
+    }
+  ]
+}
