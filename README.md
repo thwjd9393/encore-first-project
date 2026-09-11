@@ -98,7 +98,7 @@ PlayEAT는 사용자가 자연어로 원하는 식사 상황을 입력하거나 
 ## 📝 회원가입
 
 <p align="center">
-  <img src="docs/image/user/signn.png" width="850">
+  <img src="docs/image/user/singn.png" width="850">
 </p>
 
 신규 사용자는 이메일, 비밀번호, 닉네임 및 약관 동의를 통해 계정을 생성할 수 있습니다.
