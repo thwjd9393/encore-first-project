@@ -977,7 +977,6 @@ erDiagram
     LOG_CLEANING_RUNS ||--o{ LOG_CLEANING_RESULTS : produces
     API_REQUEST_LOGS ||--o{ LOG_CLEANING_RESULTS : classified
     LOG_CLEANING_RUNS ||--o{ API_STATISTICS : aggregates
-    LOG_CLEANING_RUNS ||--o{ LOG_SUMMARIES : feeds
 
     PROFILES ||--o{ LOG_SUMMARIES : requests
     LOG_SUMMARIES ||--o{ LOG_SUMMARY_EVIDENCE : cites
@@ -986,138 +985,6 @@ erDiagram
     SUMMARY_EVALUATION_CASES ||--o{ SUMMARY_EVALUATION_RUNS : tested
     LOG_SUMMARIES ||--o{ SUMMARY_EVALUATION_RUNS : scored
     IMPROVEMENT_EXPERIMENTS ||--o{ SUMMARY_EVALUATION_RUNS : compares
-```
-
-### 17.3.1 물리 ERD (로그·정제·통계·요약)
-
-로그 수집부터 품질평가까지의 테이블 PK/FK는 아래와 같다. `encore_project.xlsx`의 `정의서_new` 시트는 이 물리 ERD와 동일한 컬럼·제약으로 수동 동기화한다.
-
-```mermaid
-erDiagram
-    PROFILES {
-        uuid id PK
-    }
-
-    API_REQUEST_LOGS {
-        uuid id PK
-        uuid request_id UK
-        uuid profile_id FK
-        timestamptz occurred_at
-        varchar http_method
-        varchar endpoint_path
-        smallint status_code
-        integer response_time_ms
-        varchar error_code
-        varchar client_type
-        timestamptz created_at
-    }
-
-    LOG_CLEANING_RUNS {
-        uuid id PK
-        timestamptz period_start
-        timestamptz period_end
-        varchar criteria_version
-        varchar status
-        integer source_count
-        integer included_count
-        integer excluded_count
-        timestamptz started_at
-        timestamptz completed_at
-    }
-
-    LOG_CLEANING_RESULTS {
-        uuid cleaning_run_id PK_FK
-        uuid api_log_id PK_FK
-        boolean is_included
-        varchar normalized_endpoint
-        varchar normalized_error_code
-        varchar exclusion_reason
-        timestamptz created_at
-    }
-
-    API_STATISTICS {
-        uuid id PK
-        uuid cleaning_run_id FK
-        timestamptz period_start
-        timestamptz period_end
-        varchar endpoint
-        varchar http_method
-        integer request_count
-        integer error_count
-        numeric avg_response_time_ms
-        numeric p95_response_time_ms
-        timestamptz created_at
-    }
-
-    LOG_SUMMARIES {
-        uuid id PK
-        uuid requested_by FK
-        uuid cleaning_run_id FK
-        timestamptz period_start
-        timestamptz period_end
-        jsonb filters
-        text summary_text
-        varchar model_name
-        varchar prompt_version
-        varchar status
-        varchar error_code
-        timestamptz created_at
-    }
-
-    LOG_SUMMARY_EVIDENCE {
-        uuid summary_id PK_FK
-        uuid api_log_id PK_FK
-        smallint evidence_order
-        varchar claim_text
-    }
-
-    SUMMARY_EVALUATION_CASES {
-        uuid id PK
-        varchar name UK
-        timestamptz period_start
-        timestamptz period_end
-        jsonb filters
-        jsonb expected_facts
-        varchar scoring_rule_version
-        boolean is_active
-        timestamptz created_at
-    }
-
-    IMPROVEMENT_EXPERIMENTS {
-        uuid id PK
-        varchar name UK
-        text hypothesis
-        text change_description
-        varchar before_version
-        varchar after_version
-        varchar status
-        timestamptz created_at
-    }
-
-    SUMMARY_EVALUATION_RUNS {
-        uuid id PK
-        uuid case_id FK
-        uuid summary_id FK
-        uuid experiment_id FK
-        varchar run_type
-        numeric factuality_score
-        numeric completeness_score
-        numeric total_score
-        text notes
-        timestamptz created_at
-    }
-
-    PROFILES ||--o{ API_REQUEST_LOGS : "profile_id"
-    LOG_CLEANING_RUNS ||--o{ LOG_CLEANING_RESULTS : "cleaning_run_id"
-    API_REQUEST_LOGS ||--o{ LOG_CLEANING_RESULTS : "api_log_id"
-    LOG_CLEANING_RUNS ||--o{ API_STATISTICS : "cleaning_run_id"
-    LOG_CLEANING_RUNS ||--o{ LOG_SUMMARIES : "cleaning_run_id"
-    PROFILES ||--o{ LOG_SUMMARIES : "requested_by"
-    LOG_SUMMARIES ||--o{ LOG_SUMMARY_EVIDENCE : "summary_id"
-    API_REQUEST_LOGS ||--o{ LOG_SUMMARY_EVIDENCE : "api_log_id"
-    SUMMARY_EVALUATION_CASES ||--o{ SUMMARY_EVALUATION_RUNS : "case_id"
-    LOG_SUMMARIES ||--o{ SUMMARY_EVALUATION_RUNS : "summary_id"
-    IMPROVEMENT_EXPERIMENTS ||--o{ SUMMARY_EVALUATION_RUNS : "experiment_id"
 ```
 
 ### 17.4 기존 테이블 변경
@@ -1443,22 +1310,11 @@ FastAPI는 인증·권한 검증, 입력 모델 검증, 추천 처리, 데이터
 
 미들웨어는 요청 시작 시각과 `request_id`를 생성 또는 검증하고, 응답 완료 후 Method·실제 엔드포인트·상태 코드·응답시간·인증 사용자 ID·표준 에러 코드를 `api_request_logs`에 기록한다.
 
-#### 로그 범위표 (M0)
-
-| 구분 | 내용 |
-| --- | --- |
-| 수집 대상 | FastAPI `GET`·`POST`·`PATCH`·`DELETE` 중 아래 제외 대상이 아닌 모든 경로. 관리자 로그·통계·요약·식당·평가·검색통계 API를 포함한다. |
-| 제외 대상 | `/health`, `/docs`, `/openapi.json`, `/redoc`, `/favicon.ico`, `/static*`, `/assets*` |
-| 필수 필드 | `occurred_at`(timestamp), `http_method`, `endpoint_path`, `status_code`, `response_time_ms`(latency), `profile_id`(user ID, 비로그인 NULL), `request_id`, `error_code` |
-| 선택 필드 | `client_type` (`streamlit` 또는 `test`) |
-| 저장 금지 | 요청·응답 본문, 비밀번호, Access Token, Refresh Token, OAuth 코드, API Key |
-| 샘플 로그 | 성공 200, 클라이언트 오류 4xx, 서버 오류 5xx를 원본 `api_request_logs`에 남긴다. `backend/supabase_seed_api_logs_m0.sql`이 샘플 3건을 적재한다. |
-
-- 경로 파라미터 값은 통계에서 정규화된 템플릿 경로로 변환한다. UUID는 `{id}`로 통일한다.
+- `/health`와 정적 리소스 등 제외 대상은 M0 로그 범위에서 명시한다.
+- 경로 파라미터 값은 통계에서 정규화된 템플릿 경로로 변환한다.
 - 로그 적재 실패가 이미 완료된 사용자 요청을 실패로 변경하지 않는다.
 - 로그 적재 실패 자체는 별도 애플리케이션 로그와 모니터링 대상으로 기록한다.
 - 요청·응답 본문, 비밀번호, 토큰, API Key는 기록하지 않는다.
-- 응답 헤더 `X-Request-ID`는 원본 로그 `request_id`와 같다.
 
 ### 18.5 비동기·중복 실행
 
