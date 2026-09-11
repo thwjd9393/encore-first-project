@@ -28,7 +28,7 @@ PlayEAT는 사용자가 자연어로 원하는 식사 상황을 입력하면 식
 | Database | Supabase PostgreSQL |
 | Cache / Session | Redis |
 | AI | Gemini |
-| Collaboration | GitHub, Figma, Notion |
+| Collaboration | GitHub, Figma, Notion, Google Seets|
 
 ## 🔄 서비스 플로우
 
