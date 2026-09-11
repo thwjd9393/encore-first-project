@@ -45,7 +45,6 @@ PlayEAT는 사용자가 자연어로 원하는 식사 상황을 입력하면 식
 주요 화면:
 
 - 로그인 및 회원가입
-- 맛집 추천 메인 화면
 - AI 추천 결과 및 챗봇
 - 마이페이지
 - 관리자 대시보드
@@ -67,7 +66,7 @@ PlayEAT는 사용자가 자연어로 원하는 식사 상황을 입력하면 식
 | 팀원 | 역할 | 담당 |
 |---|---|---|
 | 배소정 | 팀장 · Backend | 챗봇, 메인 기능, Backend 총괄 |
-| 윤수영 | Frontend | 로그인 |
+| 윤수영 | Frontend | 디자인, 로그인, 회원 정보 수정 |
 | 조권식 | Frontend | 마이페이지 |
 | 백승주 | Frontend | 회원가입 |
 | 김윤한 | Dashboard | 관리자 화면 및 Dashboard |
@@ -88,11 +87,10 @@ PlayEAT는 사용자가 자연어로 원하는 식사 상황을 입력하면 식
 │   ├── 06_API.md
 │   ├── 07_convention.html
 │   └── images/
-│       └── 01_FLOWCHART.png
 ├── backend/
 ├── frontend/
 ├── requirements.txt
-└── .env.example
+└── .env
 ```
 
 ## 📊 기대 효과
