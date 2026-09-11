@@ -57,6 +57,18 @@ PlayEAT는 사용자가 자연어로 원하는 식사 상황을 입력하거나 
 
 ---
 
+## 🔗 프로젝트 산출물
+
+| 구분 | 링크 |
+| --- | --- |
+| 깃허브 저장소 주소 | [https://github.com/encore-ai-campus/aio-02-p1-team1](https://github.com/encore-ai-campus/aio-02-p1-team1) |
+| API 설계 문서 | [https://encore-ai-campus.github.io/aio-02-p1-team1/api/](https://encore-ai-campus.github.io/aio-02-p1-team1/api/) |
+| 화면 설계서 | [https://encore-ai-campus.github.io/aio-02-p1-team1/design/](https://encore-ai-campus.github.io/aio-02-p1-team1/design/) |
+| 데이터베이스 설계서 | [https://encore-ai-campus.github.io/aio-02-p1-team1/](https://encore-ai-campus.github.io/aio-02-p1-team1/) |
+| 대시보드 구현 결과물 | [PlayEAT 발표 스크린샷 포함 최종본 PDF](https://github.com/encore-ai-campus/aio-02-p1-team1/blob/main/docs/PlayEAT_%EB%B0%9C%ED%91%9C_%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%ED%8F%AC%ED%95%A8_%EC%B5%9C%EC%A2%85%EB%B3%B8.pdf) |
+
+---
+
 ## 🔄 서비스 플로우
 
 <p align="center">
@@ -209,7 +221,7 @@ PlayEAT의 화면 구조와 UI 디자인은 Figma를 기반으로 설계했습�
 
 상세한 화면 구성과 기능, 사용자 액션, 시스템 반응은 아래 화면설계서에서 확인할 수 있습니다.
 
-[👉 PlayEAT 화면설계서](docs/PlayEAT_최종_화면설계서.md)
+[👉 PlayEAT 화면설계서](https://encore-ai-campus.github.io/aio-02-p1-team1/design/)
 
 ---
 
@@ -238,8 +250,6 @@ PlayEAT의 화면 구조와 UI 디자인은 Figma를 기반으로 설계했습�
 
 [👉 PlayEAT 프로젝트 공유 Google Sheets](https://docs.google.com/spreadsheets/d/1OemleNo7ULmUQ5gd9e-iSl7byxi1yw6mrEJtMZnUFws/edit?usp=sharing)
 
-Google Sheets를 통해 다음 정보를 팀원들과 공유했습니다.
-
 이를 통해 각 팀원이 동일한 데이터를 기준으로 Frontend, Backend, Database 기능을 개발할 수 있도록 관리했습니다.
 
 ---
@@ -248,13 +258,13 @@ Google Sheets를 통해 다음 정보를 팀원들과 공유했습니다.
 
 | 문서 | 설명 |
 | --- | --- |
-| [PRD](docs/PlayEAT_PRD.md) | 프로젝트 배경, 목표, 서비스 및 기능 요구사항 |
-| [WBS](docs/PlayEAT_WBS.md) | 프로젝트 일정, 작업 항목 및 역할 분담 |
-| [API 설계서](docs/PlayEAT_API설계서.md) | Backend API Endpoint 및 Request / Response 정의 |
-| [DB 정의서](docs/PlayEAT_db정의서.md) | 데이터베이스 테이블 및 컬럼 정의 |
-| [논리·물리 ERD](docs/PlayEAT_논리물리ERD.md) | 서비스 데이터 모델과 테이블 관계 |
-| [화면설계서](docs/PlayEAT_최종_화면설계서.md) | 사용자·관리자 화면 구성 및 동작 정의 |
-| [코드 컨벤션](docs/PlayEAT_코드컨벤션.md) | 코드 작성 및 Git 협업 규칙 |
+| [PRD](https://github.com/encore-ai-campus/aio-02-p1-team1/blob/main/docs/PlayEAT_PRD.md) | 프로젝트 배경, 목표, 서비스 및 기능 요구사항 |
+| [WBS](https://github.com/encore-ai-campus/aio-02-p1-team1/blob/main/docs/PlayEAT_WBS.md) | 프로젝트 일정, 작업 항목 및 역할 분담 |
+| [API 설계서](https://encore-ai-campus.github.io/aio-02-p1-team1/api/) | Backend API Endpoint 및 Request / Response 정의 |
+| [DB 정의서](https://encore-ai-campus.github.io/aio-02-p1-team1/) | 데이터베이스 테이블 및 컬럼 정의 |
+| [논리·물리 ERD](https://github.com/encore-ai-campus/aio-02-p1-team1/blob/main/docs/PlayEAT_%EB%85%BC%EB%A6%AC%EB%AC%BC%EB%A6%ACERD.md) | 서비스 데이터 모델과 테이블 관계 |
+| [화면설계서](https://encore-ai-campus.github.io/aio-02-p1-team1/design/) | 사용자·관리자 화면 구성 및 동작 정의 |
+| [코드 컨벤션](https://github.com/encore-ai-campus/aio-02-p1-team1/blob/main/docs/PlayEAT_%EC%BD%94%EB%93%9C%EC%BB%A8%EB%B2%A4%EC%85%98.md) | 코드 작성 및 Git 협업 규칙 |
 | [Google Sheets](https://docs.google.com/spreadsheets/d/1OemleNo7ULmUQ5gd9e-iSl7byxi1yw6mrEJtMZnUFws/edit?usp=sharing) | 식당·메뉴 데이터 및 팀 프로젝트 공유 자료 |
 
 ---
@@ -274,7 +284,7 @@ Google Sheets를 통해 다음 정보를 팀원들과 공유했습니다.
 ## 📂 프로젝트 구조
 
 ```text
-encore-first-project/
+aio-02-p1-team1/
 │
 ├── backend/
 │   ├── .venv/
@@ -296,13 +306,15 @@ encore-first-project/
 │   │   │   ├── admin_user_log.png
 │   │   │   └── admin_user_reaction.png
 │   │   │
-│   │   └── user/
-│   │       ├── login.png
-│   │       ├── main_result.png
-│   │       ├── main.png
-│   │       ├── mypage.png
-│   │       ├── profile_update.png
-│   │       └── signn.png
+│   │   ├── user/
+│   │   │   ├── login.png
+│   │   │   ├── main_result.png
+│   │   │   ├── main.png
+│   │   │   ├── mypage.png
+│   │   │   ├── profile_update.png
+│   │   │   └── signn.png
+│   │   │
+│   │   └── 01_FLOWCHART.png
 │   │
 │   ├── PlayEAT_API설계서.md
 │   ├── PlayEAT_db정의서.md
@@ -330,7 +342,6 @@ encore-first-project/
 │   │   │   └── style.css
 │   │   │
 │   │   └── views/
-│   │       ├── __pycache__/
 │   │       ├── admin_analytics.py
 │   │       ├── admin_common.py
 │   │       ├── admin_feedback.py
@@ -351,84 +362,3 @@ encore-first-project/
 │   └── uv.lock
 │
 └── README.md
-```
-
----
-
-## 🚀 실행 방법
-
-### 1. Repository Clone
-
-```bash
-git clone https://github.com/thwjd9393/encore-first-project.git
-cd encore-first-project
-```
-
-### 2. Backend 실행
-
-```bash
-cd backend
-uv sync
-uv run uvicorn app.main:app --reload
-```
-
-Backend Server
-
-```text
-http://127.0.0.1:8000
-```
-
-FastAPI Swagger
-
-```text
-http://127.0.0.1:8000/docs
-```
-
-### 3. Frontend 실행
-
-새 Terminal에서 실행합니다.
-
-```bash
-cd frontend
-uv sync
-uv run streamlit run streamlit_app.py
-```
-
-Streamlit
-
-```text
-http://localhost:8501
-```
-
----
-
-## 🔐 환경 변수
-
-Backend 실행 전 `.env.example`을 참고하여 `.env` 파일을 설정해야 합니다.
-
-```text
-backend/
-├── .env
-└── .env.example
-```
-
-`.env` 파일에는 Supabase, Gemini 등의 API Key 및 인증 정보가 포함될 수 있으므로 GitHub Repository에 업로드하지 않습니다.
-
----
-
-## 📊 기대 효과
-
-- 사용자의 상황에 맞는 개인화된 맛집 탐색 시간 단축
-- 정형화하기 어려운 감정·상황 정보를 활용한 추천 경험 제공
-- 가격과 음식 특징을 활용한 현실적인 음식점 추천
-- AI를 활용한 자연스러운 추천 이유 제공
-- 추천 결과와 사용자 피드백을 활용한 서비스 개선
-- 사용자 검색 및 행동 로그를 활용한 서비스 분석
-- 관리자 대시보드를 통한 서비스 운영 및 의사결정 지원
-- Google Sheets를 활용한 팀원 간 데이터 공유 및 협업 효율 향상
-
----
-
-## 📄 License
-
-This project is for educational and team-project purposes.
